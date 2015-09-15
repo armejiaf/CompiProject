@@ -1,20 +1,21 @@
 #ifndef ABRIRARCHIVONODE_H
 #define ABRIRARCHIVONODE_H
 #include "statementnode.h"
-#include "expressionnode.h"
+#include "variablenode.h"
 #include "modenode.h"
 #include <vector>
 class AbrirArchivoNode:public StatementNode
 {
 public:
-    ExpressionNode * variable;
-    ExpressionNode * archiveToOpen;
+    VariableNode * archiveToOpen;
+    VariableNode * id;
     vector<ModeNode*> modes;
-    AbrirArchivoNode();
+
+    AbrirArchivoNode(VariableNode * archiveToOpen,VariableNode * id,vector<ModeNode*> modes);
     ~AbrirArchivoNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // ABRIRARCHIVONODE_H

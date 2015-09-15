@@ -15,3 +15,8 @@ string GreaterThanNode::ToXml()
 
 }
 
+string GreaterThanNode::GetName()
+{
+
+}
+

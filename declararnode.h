@@ -1,19 +1,19 @@
 #ifndef DECLARARNODE_H
 #define DECLARARNODE_H
 #include "statementnode.h"
-#include "expressionnode.h"
+#include "typenode.h"
 #include <vector>
 
 class DeclararNode:public StatementNode
 {
 public:
-    ExpressionNode * type;
+    TypeNode * type;
     vector <string> idList;
-    DeclararNode();
+    DeclararNode(TypeNode * type,vector <string> idList);
     ~DeclararNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // DECLARARNODE_H

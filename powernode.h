@@ -8,9 +8,8 @@ public:
     PowerNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~PowerNode();
 
-    // ExpressionNode interface
-
     string ToXml();
+    string GetName();
 };
 
 #endif // POWERNODE_H

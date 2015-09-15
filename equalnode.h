@@ -8,8 +8,8 @@ public:
     EqualNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~EqualNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // EQUALNODE_H

@@ -40,15 +40,12 @@ SOURCES += main.cpp \
     variablenode.cpp \
     statementnode.cpp \
     accesornode.cpp \
-    fieldaccesornode.cpp \
-    indexaccesornode.cpp \
     sinode.cpp \
     paranode.cpp \
     assignmentnode.cpp \
     mientrasnode.cpp \
     repitanode.cpp \
     llamarnode.cpp \
-    literalnode.cpp \
     constantintegernode.cpp \
     constantfloatnode.cpp \
     constantcharacternode.cpp \
@@ -62,24 +59,27 @@ SOURCES += main.cpp \
     retornenode.cpp \
     escribanode.cpp \
     declararnode.cpp \
-    arreglonode.cpp \
-    enteronode.cpp \
-    realnode.cpp \
-    booleanonode.cpp \
-    archivonode.cpp \
-    archivotypenode.cpp \
-    dearchivetype.cpp \
-    secuencialnode.cpp \
     funcionnode.cpp \
     procedimientonode.cpp \
     parameternode.cpp \
-    referenceparameternode.cpp \
-    simpleparameternode.cpp \
     tiponode.cpp \
     registronode.cpp \
-    escrbanode.cpp \
     parentnode.cpp \
-    constanbooleannode.cpp
+    constanbooleannode.cpp \
+    typenode.cpp \
+    typebooleanonode.cpp \
+    typeenteronode.cpp \
+    typearreglonode.cpp \
+    typerealnode.cpp \
+    typecaracternode.cpp \
+    typearchivonode.cpp \
+    typesecuencialnode.cpp \
+    typecadenanode.cpp \
+    accesorfieldnode.cpp \
+    accesorindexnode.cpp \
+    parameterreferencenode.cpp \
+    parametersimplenode.cpp \
+    casolinenode.cpp
 
 HEADERS += \
     token.h \
@@ -107,15 +107,12 @@ HEADERS += \
     variablenode.h \
     statementnode.h \
     accesornode.h \
-    fieldaccesornode.h \
-    indexaccesornode.h \
     sinode.h \
     paranode.h \
     assignmentnode.h \
     mientrasnode.h \
     repitanode.h \
     llamarnode.h \
-    literalnode.h \
     constantintegernode.h \
     constantfloatnode.h \
     constantcharacternode.h \
@@ -129,22 +126,25 @@ HEADERS += \
     retornenode.h \
     escribanode.h \
     declararnode.h \
-    arreglonode.h \
-    enteronode.h \
-    realnode.h \
-    booleanonode.h \
-    archivonode.h \
-    archivotypenode.h \
-    dearchivetype.h \
-    secuencialnode.h \
     funcionnode.h \
     procedimientonode.h \
     parameternode.h \
-    referenceparameternode.h \
-    simpleparameternode.h \
     tiponode.h \
     registronode.h \
     TreeNode/expressionnode.h \
-    escrbanode.h \
     parentnode.h \
-    constanbooleannode.h
+    constanbooleannode.h \
+    typenode.h \
+    typebooleanonode.h \
+    typeenteronode.h \
+    typearreglonode.h \
+    typerealnode.h \
+    typecaracternode.h \
+    typearchivonode.h \
+    typesecuencialnode.h \
+    typecadenanode.h \
+    accesorfieldnode.h \
+    accesorindexnode.h \
+    parameterreferencenode.h \
+    parametersimplenode.h \
+    casolinenode.h

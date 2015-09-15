@@ -8,8 +8,8 @@ public:
     SumNode(ExpressionNode* leftNode, ExpressionNode *rightNode);
     ~SumNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // SUMNODE_H

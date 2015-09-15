@@ -15,3 +15,8 @@ string NegatedNode::ToXml()
 
 }
 
+string NegatedNode::GetName()
+{
+
+}
+

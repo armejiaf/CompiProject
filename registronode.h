@@ -1,21 +1,21 @@
 #ifndef REGISTRONODE_H
 #define REGISTRONODE_H
 #include "statementnode.h"
-#include "expressionnode.h"
+#include "variablenode.h"
 #include "declararnode.h"
 #include <vector>
 
 class RegistroNode:public StatementNode
 {
 public:
-    ExpressionNode * id;
+    VariableNode * id;
     vector<DeclararNode*> variables;
 
-    RegistroNode();
+    RegistroNode(VariableNode * id,vector<DeclararNode*> variables);
     ~RegistroNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // REGISTRONODE_H

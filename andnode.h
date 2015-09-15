@@ -8,9 +8,9 @@ public:
     AndNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~AndNode();
 
-    // ExpressionNode interface
-    string ToXml();
 
+    string ToXml();
+    string GetName();
 };
 
 #endif // ANDNODE_H

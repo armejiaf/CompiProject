@@ -15,3 +15,8 @@ string DivisionNode::ToXml()
 
 }
 
+string DivisionNode::GetName()
+{
+
+}
+

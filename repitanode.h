@@ -9,11 +9,11 @@ class RepitaNode:public StatementNode
 public:
     vector <StatementNode*> code;
     ExpressionNode *condition;
-    RepitaNode();
+    RepitaNode(vector <StatementNode*> code, ExpressionNode *condition);
     ~RepitaNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // REPITANODE_H

@@ -15,3 +15,8 @@ string LessThanNode::ToXml()
 
 }
 
+string LessThanNode::GetName()
+{
+
+}
+

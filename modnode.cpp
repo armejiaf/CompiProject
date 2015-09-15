@@ -15,3 +15,8 @@ string ModNode::ToXml()
 
 }
 
+string ModNode::GetName()
+{
+
+}
+

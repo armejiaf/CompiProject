@@ -1,18 +1,17 @@
 #ifndef MODENODE_H
 #define MODENODE_H
-#include <string.h>
-#include <iostream>
-using namespace std;
+#include "parentnode.h"
 
-
-class ModeNode
+class ModeNode:public ParentNode
 {
 public:
-    int row;
-    int column;
+
     string modeType;
-    ModeNode();
+    ModeNode(string modeType);
     ~ModeNode();
+
+    string ToXml();
+    string GetName();
 };
 
 #endif // MODENODE_H

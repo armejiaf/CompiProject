@@ -1,8 +1,9 @@
 #include "repitanode.h"
 
-RepitaNode::RepitaNode()
+RepitaNode::RepitaNode(vector<StatementNode *> code, ExpressionNode *condition)
 {
-
+    this->code=code;
+    this->condition=condition;
 }
 
 RepitaNode::~RepitaNode()
@@ -11,6 +12,11 @@ RepitaNode::~RepitaNode()
 }
 
 string RepitaNode::ToXml()
+{
+
+}
+
+string RepitaNode::GetName()
 {
 
 }

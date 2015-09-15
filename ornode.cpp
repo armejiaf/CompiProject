@@ -15,3 +15,8 @@ string OrNode::ToXml()
 
 }
 
+string OrNode::GetName()
+{
+
+}
+

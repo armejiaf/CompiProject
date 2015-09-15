@@ -1,8 +1,8 @@
 #include "cerrararchivonode.h"
 
-CerrarArchivoNode::CerrarArchivoNode()
+CerrarArchivoNode::CerrarArchivoNode(VariableNode *archiveToClose)
 {
-
+    this->archiveToClose=archiveToClose;
 }
 
 CerrarArchivoNode::~CerrarArchivoNode()
@@ -11,6 +11,11 @@ CerrarArchivoNode::~CerrarArchivoNode()
 }
 
 string CerrarArchivoNode::ToXml()
+{
+
+}
+
+string CerrarArchivoNode::GetName()
 {
 
 }

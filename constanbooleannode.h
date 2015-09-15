@@ -1,13 +1,16 @@
 #ifndef CONSTANBOOLEANNODE_H
 #define CONSTANBOOLEANNODE_H
-#include "literalnode.h"
+#include "expressionnode.h"
 
-class ConstanBooleanNode:public LiteralNode
+class ConstanBooleanNode:public ExpressionNode
 {
 public:
     bool value;
-    ConstanBooleanNode();
+    ConstanBooleanNode(bool value);
     ~ConstanBooleanNode();
+
+    string ToXml();
+    string GetName();
 };
 
 #endif // CONSTANBOOLEANNODE_H

@@ -15,3 +15,9 @@ string EqualNode::ToXml()
 
 }
 
+string EqualNode::GetName()
+{
+
+
+}
+

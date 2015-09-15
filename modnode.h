@@ -9,8 +9,8 @@ public:
     ModNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~ModNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // MODNODE_H

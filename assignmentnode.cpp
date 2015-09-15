@@ -16,3 +16,8 @@ string AssignmentNode::ToXml()
 
 }
 
+string AssignmentNode::GetName()
+{
+
+}
+

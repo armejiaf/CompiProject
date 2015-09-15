@@ -1,8 +1,9 @@
 #include "mientrasnode.h"
 
-MientrasNode::MientrasNode()
+MientrasNode::MientrasNode(ExpressionNode *condition,vector <StatementNode*> code)
 {
-
+    this->condition = condition;
+    this->code=code;
 }
 
 MientrasNode::~MientrasNode()
@@ -11,6 +12,11 @@ MientrasNode::~MientrasNode()
 }
 
 string MientrasNode::ToXml()
+{
+
+}
+
+string MientrasNode::GetName()
 {
 
 }

@@ -1,18 +1,18 @@
 #ifndef ESCRIBIRARCHIVONODE_H
 #define ESCRIBIRARCHIVONODE_H
 #include "statementnode.h"
-#include "expressionnode.h"
+#include "variablenode.h"
 
 class EscribirArchivoNode:public StatementNode
 {
 public:
-    ExpressionNode * firstVariable;
-    ExpressionNode * secondVariable;
-    EscribirArchivoNode();
+    VariableNode * archive;
+    VariableNode * data;
+    EscribirArchivoNode(VariableNode * archive,VariableNode * data);
     ~EscribirArchivoNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // ESCRIBIRARCHIVONODE_H

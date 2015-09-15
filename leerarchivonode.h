@@ -1,18 +1,18 @@
 #ifndef LEERARCHIVONODE_H
 #define LEERARCHIVONODE_H
 #include "statementnode.h"
-#include "expressionnode.h"
+#include "variablenode.h"
 
 class LeerArchivoNode:public StatementNode
 {
 public:
-    ExpressionNode * firstVariable;
-    ExpressionNode * secondVariable;
-    LeerArchivoNode();
+    VariableNode * archive;
+    VariableNode * data;
+    LeerArchivoNode(VariableNode * archive,VariableNode * data);
     ~LeerArchivoNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // LEERARCHIVONODE_H

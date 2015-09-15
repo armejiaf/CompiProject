@@ -1,16 +1,16 @@
 #ifndef CONSTANTSTRINGNODE_H
 #define CONSTANTSTRINGNODE_H
-#include "literalnode.h"
+#include "expressionnode.h"
 
-class ConstantStringNode:public LiteralNode
+class ConstantStringNode:public ExpressionNode
 {
 public:
     string value;
-    ConstantStringNode();
+    ConstantStringNode(string value);
     ~ConstantStringNode();
 
-    // LiteralNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // CONSTANTSTRINGNODE_H

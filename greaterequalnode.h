@@ -8,8 +8,8 @@ public:
     GreaterEqualNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~GreaterEqualNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // GREATEREQUALNODE_H

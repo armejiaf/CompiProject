@@ -8,8 +8,8 @@ public:
     GreaterThanNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~GreaterThanNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // GREATERTHANNODE_H

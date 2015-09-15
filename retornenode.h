@@ -1,17 +1,17 @@
 #ifndef RETORNENODE_H
 #define RETORNENODE_H
 #include "statementnode.h"
-#include "expressionnode.h"
+#include "variablenode.h"
 
 class RetorneNode:public StatementNode
 {
 public:
-    ExpressionNode * variable;
-    RetorneNode();
+    VariableNode * returnVariable;
+    RetorneNode(VariableNode * returnVariable);
     ~RetorneNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // RETORNENODE_H

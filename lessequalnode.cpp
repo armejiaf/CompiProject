@@ -15,3 +15,8 @@ string LessEqualNode::ToXml()
 
 }
 
+string LessEqualNode::GetName()
+{
+
+}
+

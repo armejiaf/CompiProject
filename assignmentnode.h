@@ -11,8 +11,9 @@ public:
     ~AssignmentNode();
     VariableNode* id;
     ExpressionNode* value;
-    // StatementNode interface
+
     string ToXml();
+    string GetName();
 };
 
 #endif // ASSIGNMENTNODE_H

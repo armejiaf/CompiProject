@@ -1,21 +1,21 @@
 #ifndef PROCEDIMIENTONODE_H
 #define PROCEDIMIENTONODE_H
 #include "statementnode.h"
-#include "expressionnode.h"
+#include "variablenode.h"
 #include "parameternode.h"
 #include <vector>
 
 class ProcedimientoNode:public StatementNode
 {
 public:
-    ExpressionNode * id;
+    VariableNode * id;
     vector<ParameterNode*> parameters;
     vector<StatementNode*> code;
-    ProcedimientoNode();
+    ProcedimientoNode( VariableNode * id,vector<ParameterNode*> parameters,vector<StatementNode*> code);
     ~ProcedimientoNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // PROCEDIMIENTONODE_H

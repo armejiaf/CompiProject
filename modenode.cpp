@@ -1,11 +1,21 @@
 #include "modenode.h"
 
-ModeNode::ModeNode()
+ModeNode::ModeNode(string modeType)
+{
+    this->modeType=modeType;
+}
+
+ModeNode::~ModeNode()
 {
 
 }
 
-ModeNode::~ModeNode()
+string ModeNode::ToXml()
+{
+
+}
+
+string ModeNode::GetName()
 {
 
 }

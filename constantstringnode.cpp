@@ -1,8 +1,8 @@
 #include "constantstringnode.h"
 
-ConstantStringNode::ConstantStringNode()
+ConstantStringNode::ConstantStringNode(string value)
 {
-
+    this->value=value;
 }
 
 ConstantStringNode::~ConstantStringNode()
@@ -11,6 +11,11 @@ ConstantStringNode::~ConstantStringNode()
 }
 
 string ConstantStringNode::ToXml()
+{
+
+}
+
+string ConstantStringNode::GetName()
 {
 
 }

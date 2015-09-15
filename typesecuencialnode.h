@@ -1,15 +1,15 @@
 #ifndef SECUENCIALNODE_H
 #define SECUENCIALNODE_H
-#include "archivotypenode.h"
+#include "typenode.h"
 
-class SecuencialNode:public ArchivoTypeNode
+class SecuencialNode:public TypeNode
 {
 public:
     SecuencialNode();
     ~SecuencialNode();
 
-    // ArchivoTypeNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // SECUENCIALNODE_H

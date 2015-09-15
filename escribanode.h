@@ -9,11 +9,11 @@ class EscribaNode:public StatementNode
 public:
     vector<ExpressionNode*> printVariables;
 
-    EscribaNode();
+    EscribaNode(vector<ExpressionNode*> printVariables);
     ~EscribaNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // ESCRIBANODE_H

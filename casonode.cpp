@@ -1,8 +1,10 @@
 #include "casonode.h"
 
-CasoNode::CasoNode()
+CasoNode::CasoNode(VariableNode *idCase, vector<CasoLineNode *> cases, vector<StatementNode *> defaultNode)
 {
-
+    this->idCase=idCase;
+    this->cases=cases;
+    this->defaultNode=defaultNode;
 }
 
 CasoNode::~CasoNode()
@@ -11,6 +13,11 @@ CasoNode::~CasoNode()
 }
 
 string CasoNode::ToXml()
+{
+
+}
+
+string CasoNode::GetName()
 {
 
 }

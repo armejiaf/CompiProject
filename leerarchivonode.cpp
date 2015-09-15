@@ -1,8 +1,9 @@
 #include "leerarchivonode.h"
 
-LeerArchivoNode::LeerArchivoNode()
+LeerArchivoNode::LeerArchivoNode(VariableNode * archive,VariableNode * data)
 {
-
+    this->archive=archive;
+    this->data=data;
 }
 
 LeerArchivoNode::~LeerArchivoNode()
@@ -11,6 +12,11 @@ LeerArchivoNode::~LeerArchivoNode()
 }
 
 string LeerArchivoNode::ToXml()
+{
+
+}
+
+string LeerArchivoNode::GetName()
 {
 
 }

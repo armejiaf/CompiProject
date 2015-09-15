@@ -1,8 +1,8 @@
 #include "escribanode.h"
 
-EscribaNode::EscribaNode()
+EscribaNode::EscribaNode(vector<ExpressionNode *> printVariables)
 {
-
+    this->printVariables = printVariables;
 }
 
 EscribaNode::~EscribaNode()
@@ -11,6 +11,11 @@ EscribaNode::~EscribaNode()
 }
 
 string EscribaNode::ToXml()
+{
+
+}
+
+string EscribaNode::GetName()
 {
 
 }

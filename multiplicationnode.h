@@ -8,8 +8,8 @@ public:
     MultiplicationNode(ExpressionNode *leftNode,ExpressionNode * rightNode);
     ~MultiplicationNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // MULTIPLICATIONNODE_H

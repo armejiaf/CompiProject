@@ -9,6 +9,7 @@ class AccesorNode
 {
 public:
     virtual string ToXml()=0;
+    virtual string GetName()=0;
     int row;
     int column;
     AccesorNode();

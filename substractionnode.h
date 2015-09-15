@@ -8,8 +8,8 @@ public:
     SubstractionNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~SubstractionNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // SUBSTRACTIONNODE_H

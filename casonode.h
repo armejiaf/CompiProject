@@ -1,18 +1,22 @@
 #ifndef CASONODE_H
 #define CASONODE_H
 #include "statementnode.h"
-#include "expressionnode.h"
+#include "variablenode.h"
+#include "casolinenode.h"
+#include <vector>
 
 class CasoNode:public StatementNode
 {
 public:
-    ExpressionNode * type;
+    VariableNode * idCase;
+    vector<CasoLineNode*> cases;
+    vector<StatementNode*> defaultNode;
 
-    CasoNode();
+    CasoNode( VariableNode * idCase,vector<CasoLineNode*> cases,vector<StatementNode*> defaultNode);
     ~CasoNode();
 
-    // StatementNode interface
    string ToXml();
+   string GetName();
 };
 
 #endif // CASONODE_H

@@ -1,15 +1,15 @@
 #ifndef REALNODE_H
 #define REALNODE_H
 #include "expressionnode.h"
-
-class RealNode:public ExpressionNode
+#include "typenode.h"
+class RealNode:public TypeNode
 {
 public:
     RealNode();
     ~RealNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // REALNODE_H

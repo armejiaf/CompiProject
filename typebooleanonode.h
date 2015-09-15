@@ -1,15 +1,15 @@
 #ifndef BOOLEANONODE_H
 #define BOOLEANONODE_H
 #include "expressionnode.h"
-
-class BooleanoNode:public ExpressionNode
+#include "typenode.h"
+class BooleanoNode:public TypeNode
 {
 public:
     BooleanoNode();
     ~BooleanoNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // BOOLEANONODE_H

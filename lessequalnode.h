@@ -8,8 +8,8 @@ public:
     LessEqualNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~LessEqualNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // LESSEQUALNODE_H

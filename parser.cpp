@@ -617,7 +617,9 @@ void Parser::LiteralListPrime()
 {
     if(currenttoken->type==Coma)
     {
-        LiteralList();
+        ConsumeToken();
+        Literal();
+        LiteralListPrime();
     }
     else
     {

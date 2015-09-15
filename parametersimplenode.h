@@ -1,19 +1,20 @@
 #ifndef SIMPLEPARAMETERNODE_H
 #define SIMPLEPARAMETERNODE_H
 #include "parameternode.h"
-#include "expressionnode.h"
+#include "variablenode.h"
+#include "typenode.h"
 
 
 class SimpleParameterNode:public ParameterNode
 {
 public:
-    ExpressionNode* id;
-    ExpressionNode* type;
-    SimpleParameterNode();
+    VariableNode * id;
+    TypeNode * type;
+    SimpleParameterNode( VariableNode * id,TypeNode * type);
     ~SimpleParameterNode();
 
-    // ParameterNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // SIMPLEPARAMETERNODE_H

@@ -15,3 +15,8 @@ string NotEqual::ToXml()
 
 }
 
+string NotEqual::GetName()
+{
+
+}
+

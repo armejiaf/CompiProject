@@ -1,8 +1,8 @@
 #include "constantfloatnode.h"
 
-ConstantFloatNode::ConstantFloatNode()
+ConstantFloatNode::ConstantFloatNode(float value)
 {
-
+    this->value=value;
 }
 
 ConstantFloatNode::~ConstantFloatNode()
@@ -11,6 +11,11 @@ ConstantFloatNode::~ConstantFloatNode()
 }
 
 string ConstantFloatNode::ToXml()
+{
+
+}
+
+string ConstantFloatNode::GetName()
 {
 
 }

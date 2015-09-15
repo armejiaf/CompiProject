@@ -8,8 +8,8 @@ public:
     DivisionNode(ExpressionNode * leftNode, ExpressionNode*rightNode);
     ~DivisionNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // DIVISIONNODE_H

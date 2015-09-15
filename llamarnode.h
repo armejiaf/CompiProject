@@ -2,19 +2,20 @@
 #define LLAMARNODE_H
 #include "statementnode.h"
 #include "expressionnode.h"
+#include "variablenode.h"
 #include <vector>
 
 class LlamarNode:public StatementNode
 {
 public:
-    ExpressionNode * idName;
+    VariableNode * idProcedure;
     vector<ExpressionNode*> parameters;
 
-    LlamarNode();
+    LlamarNode( VariableNode * idProcedure,vector<ExpressionNode*> parameters);
     ~LlamarNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // LLAMARNODE_H

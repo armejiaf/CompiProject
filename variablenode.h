@@ -12,11 +12,11 @@ class VariableNode:public ExpressionNode
 public:
     string name;
     vector <AccesorNode*> accesorList;
-    VariableNode();
+    VariableNode(string name,vector <AccesorNode*> accesorList);
     ~VariableNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // VARIABLENODE_H

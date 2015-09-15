@@ -9,7 +9,7 @@ class ParaNode:public StatementNode
 {
 public:
 
-    ParaNode();
+    ParaNode(AssignmentNode *counter,ExpressionNode *condition,vector<StatementNode*> code);
     ~ParaNode();
 
 
@@ -17,8 +17,8 @@ public:
     ExpressionNode *condition;
     vector<StatementNode*> code;
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // PARANODE_H

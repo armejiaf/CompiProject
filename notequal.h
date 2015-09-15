@@ -8,9 +8,8 @@ public:
     NotEqual(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~NotEqual();
 
-    // ExpressionNode interface
-
     string ToXml();
+    string GetName();
 };
 
 #endif // NOTEQUAL_H

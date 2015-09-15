@@ -9,11 +9,11 @@ class FieldAccesorNode: public AccesorNode
 {
 public:
     string fieldName;
-    FieldAccesorNode();
+    FieldAccesorNode(string fieldName);
     ~FieldAccesorNode();
 
-    // AccesorNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // FIELDACCESORNODE_H

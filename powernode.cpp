@@ -15,3 +15,8 @@ string PowerNode::ToXml()
 
 }
 
+string PowerNode::GetName()
+{
+
+}
+

@@ -15,3 +15,8 @@ string SubstractionNode::ToXml()
 
 }
 
+string SubstractionNode::GetName()
+{
+
+}
+

@@ -10,6 +10,7 @@ public:
     int row;
     int column;
     virtual string ToXml()=0;
+    virtual string GetName()=0;
     ParameterNode();
     ~ParameterNode();
 };

@@ -11,11 +11,11 @@ public:
     vector <StatementNode*> trueCode;
     vector<StatementNode*> falseCode;
 
-    SiNode();
+    SiNode( ExpressionNode *condicion,vector <StatementNode*> trueCode, vector<StatementNode*> falseCode);
     ~SiNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // SINODE_H

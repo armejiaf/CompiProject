@@ -1,8 +1,8 @@
 #include "constantintegernode.h"
 
-ConstantIntegerNode::ConstantIntegerNode()
+ConstantIntegerNode::ConstantIntegerNode(int value)
 {
-
+    this->value=value;
 }
 
 ConstantIntegerNode::~ConstantIntegerNode()
@@ -11,6 +11,11 @@ ConstantIntegerNode::~ConstantIntegerNode()
 }
 
 string ConstantIntegerNode::ToXml()
+{
+
+}
+
+string ConstantIntegerNode::GetName()
 {
 
 }

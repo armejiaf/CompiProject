@@ -1,8 +1,8 @@
 #include "constantcharacternode.h"
 
-ConstantCharacterNode::ConstantCharacterNode()
+ConstantCharacterNode::ConstantCharacterNode(char value)
 {
-
+    this->value=value;
 }
 
 ConstantCharacterNode::~ConstantCharacterNode()
@@ -11,6 +11,11 @@ ConstantCharacterNode::~ConstantCharacterNode()
 }
 
 string ConstantCharacterNode::ToXml()
+{
+
+}
+
+string ConstantCharacterNode::GetName()
 {
 
 }

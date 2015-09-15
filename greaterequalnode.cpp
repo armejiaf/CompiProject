@@ -15,3 +15,8 @@ string GreaterEqualNode::ToXml()
 
 }
 
+string GreaterEqualNode::GetName()
+{
+
+}
+

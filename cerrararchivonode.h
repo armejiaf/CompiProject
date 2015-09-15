@@ -1,17 +1,17 @@
 #ifndef CERRARARCHIVONODE_H
 #define CERRARARCHIVONODE_H
 #include "statementnode.h"
-#include "expressionnode.h"
+#include "variablenode.h"
 
 class CerrarArchivoNode:public StatementNode
 {
 public:
-    ExpressionNode * variable;
-    CerrarArchivoNode();
+    VariableNode * archiveToClose;
+    CerrarArchivoNode(VariableNode * archiveToClose);
     ~CerrarArchivoNode();
 
-    // StatementNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // CERRARARCHIVONODE_H

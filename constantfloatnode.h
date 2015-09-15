@@ -1,16 +1,16 @@
 #ifndef CONSTANTFLOATNODE_H
 #define CONSTANTFLOATNODE_H
-#include "literalnode.h"
+#include "expressionnode.h"
 
-class ConstantFloatNode:public LiteralNode
+class ConstantFloatNode:public ExpressionNode
 {
 public:
     float value;
-    ConstantFloatNode();
+    ConstantFloatNode(float value);
     ~ConstantFloatNode();
 
-    // LiteralNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // CONSTANTFLOATNODE_H

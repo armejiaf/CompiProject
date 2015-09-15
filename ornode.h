@@ -8,9 +8,8 @@ public:
     OrNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~OrNode();
 
-    // ExpressionNode interface
-public:
     string ToXml();
+    string GetName();
 };
 
 #endif // ORNODE_H

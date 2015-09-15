@@ -15,3 +15,8 @@ string DivNode::ToXml()
 
 }
 
+string DivNode::GetName()
+{
+
+}
+

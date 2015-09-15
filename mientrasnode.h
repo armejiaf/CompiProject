@@ -11,11 +11,11 @@ public:
     vector <StatementNode*> code;
 
 
-    MientrasNode();
+    MientrasNode(ExpressionNode *condition,vector <StatementNode*> code);
     ~MientrasNode();
 
-    // StatementNode interface
    string ToXml();
+   string GetName();
 };
 
 #endif // MIENTRASNODE_H

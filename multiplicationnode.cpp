@@ -15,3 +15,8 @@ string MultiplicationNode::ToXml()
 
 }
 
+string MultiplicationNode::GetName()
+{
+
+}
+

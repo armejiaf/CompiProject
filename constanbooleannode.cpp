@@ -1,11 +1,21 @@
 #include "constanbooleannode.h"
 
-ConstanBooleanNode::ConstanBooleanNode()
+ConstanBooleanNode::ConstanBooleanNode(bool value)
+{
+    this->value=value;
+}
+
+ConstanBooleanNode::~ConstanBooleanNode()
 {
 
 }
 
-ConstanBooleanNode::~ConstanBooleanNode()
+string ConstanBooleanNode::ToXml()
+{
+
+}
+
+string ConstanBooleanNode::GetName()
 {
 
 }

@@ -8,8 +8,8 @@ public:
     NegatedNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~NegatedNode();
 
-    // ExpressionNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // NEGATEDNODE_H

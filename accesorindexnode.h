@@ -7,15 +7,15 @@
 #include "expressionnode.h"
 using namespace std;
 
-class IndexAccesorNode:AccesorNode
+class IndexAccesorNode:public AccesorNode
 {
 public:
     vector <ExpressionNode*> indexes;
-    IndexAccesorNode();
+    IndexAccesorNode(vector <ExpressionNode*> indexes);
     ~IndexAccesorNode();
 
-    // AccesorNode interface
     string ToXml();
+    string GetName();
 };
 
 #endif // INDEXACCESORNODE_H

@@ -15,3 +15,8 @@ string AndNode::ToXml()
 
 }
 
+string AndNode::GetName()
+{
+
+}
+
