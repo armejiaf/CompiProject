@@ -7,14 +7,13 @@
 class ReferenceParameterNode:public ParameterNode
 {
 public:
-    VariableNode * id;
+    string id;
     TypeNode * type;
-    ReferenceParameterNode( VariableNode * id,TypeNode * type);
+    ReferenceParameterNode( string id,TypeNode * type);
     ~ReferenceParameterNode();
 
-
-    string ToXml();
     string GetName();
+    TypeNode *ValidateSemantic();
 };
 
 #endif // REFERENCEPARAMETERNODE_H

@@ -1,5 +1,12 @@
 #include "lexer.h"
 
+string Lexer::to_string(int tostring)
+{
+    ostringstream stm ;
+    stm << tostring ;
+    return stm.str() ;
+}
+
 Lexer::Lexer(string input)
 {
     this->input=input;
@@ -108,8 +115,14 @@ Token* Lexer::GetToken()
                     return new Token(EOFi,lexeme,col,row);
                 }
                 if(symbol=='<'){
+                    lexeme+=symbol;
                     symbol = GetNextSymbol();
                     state=1;
+                }
+                else if (isspace(symbol))
+                {
+                    symbol = GetNextSymbol();
+                    col = column;
                 }
                 else{
                     lexeme += symbol;
@@ -119,10 +132,12 @@ Token* Lexer::GetToken()
                 break;
             case 1:
                 if(symbol=='%'){
+                    lexeme=lexeme.substr(0, lexeme.size()-1);;
                     symbol = GetNextSymbol();
                     state=3;
                     return new Token(HTML,lexeme,col,row);
                 }
+
                 else if (symbol=='<'){
                     lexeme+=symbol;
                     symbol =GetNextSymbol();
@@ -143,6 +158,7 @@ Token* Lexer::GetToken()
                     symbol = GetNextSymbol();
                 }
                 else{
+                    lexeme+=symbol;
                     symbol = GetNextSymbol();
                     state = 1;
                 }
@@ -195,7 +211,7 @@ Token* Lexer::GetToken()
                 {
                     symbol = GetNextSymbol();
                     col = column;
-                }else if (isalpha(symbol))
+                }else if (isalpha(symbol) || symbol== '_')
                 {
                     lexeme += symbol;
                     symbol = GetNextSymbol();
@@ -203,12 +219,14 @@ Token* Lexer::GetToken()
                 }
                 else
                 {
-                    throw invalid_argument("Invalid symbol");
+                    string error="Invalid symbol ";
+                    error+=symbol;
+                    throw invalid_argument(error+" Columna: "+to_string(col)+" Fila: "+to_string(row));
                 }
                 break;
 
             case 4:
-                if (isalpha(symbol) || isdigit(symbol))
+                if (isalpha(symbol) || isdigit(symbol)|| symbol=='_')
                 {
                     lexeme += symbol;
                     symbol = GetNextSymbol();
@@ -510,8 +528,7 @@ Token* Lexer::GetToken()
                     symbol = GetNextSymbol();
                     state =10;
                 }else
-                    throw invalid_argument("No se cerro string.");
-                    //throw new LexicalException("No se cerro string");
+                    throw invalid_argument("No se cerro string. Columna: "+to_string(col)+" Fila: "+to_string(row));
 
                 break;
             case 10:
@@ -567,7 +584,9 @@ Token* Lexer::GetToken()
                         state=0;
                     }
                     else{
-                        throw invalid_argument("No se reconoce simbolo"+symbol);
+                        string error="No se reconoce simbolo ";
+                        error+=symbol;
+                        throw invalid_argument(error+" Columna: "+to_string(col)+" Fila: "+to_string(row));
                     }
                     break;
            case 18:
@@ -602,7 +621,7 @@ Token* Lexer::GetToken()
                 lexeme += symbol;
                 symbol = GetNextSymbol();
                 if(symbol != '\''){
-                    throw invalid_argument("No se envio un caracter");
+                    throw invalid_argument("No se envio un caracter. Columna: "+to_string(col)+" Fila: "+to_string(row));
                 }
                 else{
                     lexeme+=symbol;

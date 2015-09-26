@@ -1,6 +1,6 @@
 #include "parameterreferencenode.h"
 
-ReferenceParameterNode::ReferenceParameterNode(VariableNode *id, TypeNode *type)
+ReferenceParameterNode::ReferenceParameterNode(string id, TypeNode *type)
 {
     this->id=id;
     this->type=type;
@@ -11,13 +11,15 @@ ReferenceParameterNode::~ReferenceParameterNode()
 
 }
 
-string ReferenceParameterNode::ToXml()
-{
 
-}
 
 string ReferenceParameterNode::GetName()
 {
+    return "ReferenceParameterNode";
+}
 
+TypeNode *ReferenceParameterNode::ValidateSemantic()
+{
+    return type;
 }
 

@@ -5,6 +5,10 @@
 #include <vector>
 #include "accesornode.h"
 #include "expressionnode.h"
+#include "accesorfieldnode.h"
+#include "accesorfunctionnode.h"
+#include "accesorindexnode.h"
+#include "funcionnode.h"
 using namespace std;
 
 class VariableNode:public ExpressionNode
@@ -15,8 +19,8 @@ public:
     VariableNode(string name,vector <AccesorNode*> accesorList);
     ~VariableNode();
 
-    string ToXml();
     string GetName();
+    TypeNode *ValidateSemantic();
 };
 
 #endif // VARIABLENODE_H

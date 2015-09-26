@@ -1,17 +1,17 @@
 #ifndef ARCHIVONODE_H
 #define ARCHIVONODE_H
 #include "typenode.h"
+#include "valuearchivo.h"
 
 class ArchivoNode:public TypeNode
 {
 public:
-    TypeNode * type;
 
-    ArchivoNode(TypeNode * type);
+    ArchivoNode();
     ~ArchivoNode();
 
-    string ToXml();
     string GetName();
+    InterpretValue *GetDefaultValue();
 };
 
 #endif // ARCHIVONODE_H

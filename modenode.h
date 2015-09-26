@@ -10,7 +10,6 @@ public:
     ModeNode(string modeType);
     ~ModeNode();
 
-    string ToXml();
     string GetName();
 };
 

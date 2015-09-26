@@ -2,7 +2,7 @@
 
 ModNode::ModNode(ExpressionNode *leftNode, ExpressionNode *rightNode):BinaryOperationNode(leftNode,rightNode)
 {
-
+    Rules["TypeEnteroxTypeEntero"]= new EnteroNode();
 }
 
 ModNode::~ModNode()
@@ -10,13 +10,9 @@ ModNode::~ModNode()
 
 }
 
-string ModNode::ToXml()
-{
-
-}
 
 string ModNode::GetName()
 {
-
+    return "ModNode";
 }
 

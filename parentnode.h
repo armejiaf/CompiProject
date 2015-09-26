@@ -2,13 +2,17 @@
 #define PARENTNODE_H
 #include <string.h>
 #include <iostream>
+#include <sstream>
+
 using namespace std;
 
 class ParentNode
 {
 public:
-    virtual string ToXml()=0;
+
     virtual string GetName()=0;
+    string to_string(int tostring);
+
     int row;
     int column;
     ParentNode();

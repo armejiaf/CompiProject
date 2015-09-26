@@ -10,13 +10,9 @@ ModeNode::~ModeNode()
 
 }
 
-string ModeNode::ToXml()
-{
-
-}
 
 string ModeNode::GetName()
 {
-
+    return "ModeNode";
 }
 

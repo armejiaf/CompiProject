@@ -2,8 +2,8 @@
 #define FIELDACCESORNODE_H
 #include <string.h>
 #include <iostream>
-#include <list>
 #include "accesornode.h"
+#include <vector>
 using namespace std;
 class FieldAccesorNode: public AccesorNode
 {
@@ -11,9 +11,9 @@ public:
     string fieldName;
     FieldAccesorNode(string fieldName);
     ~FieldAccesorNode();
-
-    string ToXml();
+    vector<AccesorNode*> accesorlist;
     string GetName();
+    TypeNode *ValidateSemantic();
 };
 
 #endif // FIELDACCESORNODE_H

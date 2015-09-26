@@ -2,8 +2,10 @@
 #define ESCRIBANODE_H
 #include "statementnode.h"
 #include "expressionnode.h"
+#include "typearchivonode.h"
+#include "typearreglonode.h"
 #include <vector>
-
+#include <stdexcept>
 class EscribaNode:public StatementNode
 {
 public:
@@ -12,8 +14,8 @@ public:
     EscribaNode(vector<ExpressionNode*> printVariables);
     ~EscribaNode();
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // ESCRIBANODE_H

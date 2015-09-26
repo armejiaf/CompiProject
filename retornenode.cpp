@@ -1,6 +1,6 @@
 #include "retornenode.h"
 
-RetorneNode::RetorneNode(VariableNode *returnVariable)
+RetorneNode::RetorneNode(ExpressionNode *returnVariable)
 {
     this->returnVariable=returnVariable;
 }
@@ -10,13 +10,13 @@ RetorneNode::~RetorneNode()
 
 }
 
-string RetorneNode::ToXml()
-{
-
-}
-
 string RetorneNode::GetName()
 {
+    return "RetorneNode";
+}
 
+void RetorneNode::ValidateSemantic()
+{
+    return;
 }
 

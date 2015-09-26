@@ -2,7 +2,7 @@
 
 DivNode::DivNode(ExpressionNode *leftNode, ExpressionNode *rightNode):BinaryOperationNode(leftNode,rightNode)
 {
-
+    Rules["TypeEnteroxTypeEntero"]= new EnteroNode();
 }
 
 DivNode::~DivNode()
@@ -10,13 +10,8 @@ DivNode::~DivNode()
 
 }
 
-string DivNode::ToXml()
-{
-
-}
-
 string DivNode::GetName()
 {
-
+    return "DivNode";
 }
 

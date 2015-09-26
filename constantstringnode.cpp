@@ -10,13 +10,13 @@ ConstantStringNode::~ConstantStringNode()
 
 }
 
-string ConstantStringNode::ToXml()
-{
-
-}
-
 string ConstantStringNode::GetName()
 {
+    return "ConstantStringNode";
+}
 
+TypeNode *ConstantStringNode::ValidateSemantic()
+{
+    return new CadenaNode(100);
 }
 

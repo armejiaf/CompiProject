@@ -13,9 +13,9 @@ public:
     vector <ExpressionNode*> indexes;
     IndexAccesorNode(vector <ExpressionNode*> indexes);
     ~IndexAccesorNode();
-
-    string ToXml();
+    vector<AccesorNode*> accesorList;
     string GetName();
+    TypeNode *ValidateSemantic();
 };
 
 #endif // INDEXACCESORNODE_H

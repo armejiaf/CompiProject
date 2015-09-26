@@ -10,13 +10,14 @@ BooleanoNode::~BooleanoNode()
 
 }
 
-string BooleanoNode::ToXml()
-{
-
-}
 
 string BooleanoNode::GetName()
 {
+    return "TypeBoolean";
+}
 
+InterpretValue *BooleanoNode::GetDefaultValue()
+{
+    return new ValueBooleano(false);
 }
 

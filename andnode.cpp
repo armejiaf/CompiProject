@@ -2,7 +2,7 @@
 
 AndNode::AndNode(ExpressionNode *leftNode, ExpressionNode *rightNode):BinaryOperationNode(leftNode,rightNode)
 {
-
+    Rules["TypeBooleanxTypeBoolean"]= new BooleanoNode();
 }
 
 AndNode::~AndNode()
@@ -10,13 +10,7 @@ AndNode::~AndNode()
 
 }
 
-string AndNode::ToXml()
-{
-
-}
-
 string AndNode::GetName()
 {
-
+    return "AndNode";
 }
-

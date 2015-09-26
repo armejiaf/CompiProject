@@ -1,8 +1,7 @@
 #include "typearchivonode.h"
 
-ArchivoNode::ArchivoNode(TypeNode *type)
+ArchivoNode::ArchivoNode()
 {
-    this->type=type;
 }
 
 ArchivoNode::~ArchivoNode()
@@ -10,13 +9,13 @@ ArchivoNode::~ArchivoNode()
 
 }
 
-string ArchivoNode::ToXml()
-{
-
-}
-
 string ArchivoNode::GetName()
 {
+    return "TypeArchivo";
+}
 
+InterpretValue *ArchivoNode::GetDefaultValue()
+{
+    return new ValueArchivo();
 }
 

@@ -11,13 +11,16 @@ DeclararNode::~DeclararNode()
 
 }
 
-string DeclararNode::ToXml()
-{
 
-}
 
 string DeclararNode::GetName()
 {
+    return "DeclararNode";
+}
 
+void DeclararNode::ValidateSemantic()
+{
+    for(unsigned int i =0;i<idList.size();i++)
+        SymbolTable::Instance()->DeclareVariable(idList[i],type);
 }
 

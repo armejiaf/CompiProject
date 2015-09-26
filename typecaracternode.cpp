@@ -10,13 +10,13 @@ CaracterNode::~CaracterNode()
 
 }
 
-string CaracterNode::ToXml()
-{
-
-}
-
 string CaracterNode::GetName()
 {
+    return "TypeCaracter";
+}
 
+InterpretValue *CaracterNode::GetDefaultValue()
+{
+    return new ValueCaracter(' ');
 }
 

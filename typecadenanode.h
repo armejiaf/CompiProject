@@ -1,6 +1,7 @@
 #ifndef CADENANODE_H
 #define CADENANODE_H
 #include "typenode.h"
+#include "valuecadena.h"
 
 class CadenaNode:public TypeNode
 {
@@ -9,8 +10,9 @@ public:
     CadenaNode(int size);
     ~CadenaNode();
 
-    string ToXml();
     string GetName();
+
+    InterpretValue *GetDefaultValue();
 };
 
 #endif // CADENANODE_H

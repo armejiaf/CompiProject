@@ -9,6 +9,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <map>
+#include <sstream>
 
 
 using namespace std;
@@ -16,6 +17,7 @@ using namespace std;
 class Lexer
 {
 public:
+    string to_string(int tostring);
     Lexer(string input);
     char GetCurrentSymbol();
     char GetNextSymbol();

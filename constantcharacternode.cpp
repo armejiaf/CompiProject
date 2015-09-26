@@ -10,13 +10,13 @@ ConstantCharacterNode::~ConstantCharacterNode()
 
 }
 
-string ConstantCharacterNode::ToXml()
-{
-
-}
-
 string ConstantCharacterNode::GetName()
 {
+    return "ConstantCharacterNode";
+}
 
+TypeNode *ConstantCharacterNode::ValidateSemantic()
+{
+    return new CaracterNode();
 }
 

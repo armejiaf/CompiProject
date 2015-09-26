@@ -1,14 +1,13 @@
 #ifndef LESSEQUALNODE_H
 #define LESSEQUALNODE_H
 #include "binaryoperationnode.h"
-
-class LessEqualNode:BinaryOperationNode
+#include "typebooleanonode.h"
+class LessEqualNode:public BinaryOperationNode
 {
 public:
     LessEqualNode(ExpressionNode *leftNode, ExpressionNode *rightNode);
     ~LessEqualNode();
 
-    string ToXml();
     string GetName();
 };
 

@@ -3,21 +3,24 @@
 #include "statementnode.h"
 #include "typenode.h"
 #include "parameternode.h"
+#include "symboltable.h"
 #include "variablenode.h"
+#include "retornenode.h"
 #include <vector>
 
 class FuncionNode:public StatementNode
 {
 public:
-    VariableNode * id;
+    string id;
     TypeNode * type;
     vector<ParameterNode*> parameters;
+    vector<StatementNode*> variables;
     vector<StatementNode*> code;
-    FuncionNode( VariableNode * id,TypeNode * type,vector<ParameterNode*> parameters,vector<StatementNode*> code);
+    FuncionNode(string id, TypeNode * returnType, vector<ParameterNode*> parameters, vector<StatementNode*> variables, vector<StatementNode*> code);
     ~FuncionNode();
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // FUNCIONNODE_H

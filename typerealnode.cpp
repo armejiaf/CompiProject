@@ -10,13 +10,14 @@ RealNode::~RealNode()
 
 }
 
-string RealNode::ToXml()
-{
-
-}
-
 string RealNode::GetName()
 {
+    return "TypeReal";
+}
+
+InterpretValue *RealNode::GetDefaultValue()
+{
+    return new ValueReal(0.0);
 
 }
 

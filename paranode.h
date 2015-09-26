@@ -2,6 +2,7 @@
 #define PARANODE_H
 #include "statementnode.h"
 #include "assignmentnode.h"
+#include "typeenteronode.h"
 #include <vector>
 
 
@@ -17,8 +18,8 @@ public:
     ExpressionNode *condition;
     vector<StatementNode*> code;
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // PARANODE_H

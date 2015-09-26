@@ -10,13 +10,13 @@ ConstantIntegerNode::~ConstantIntegerNode()
 
 }
 
-string ConstantIntegerNode::ToXml()
-{
-
-}
-
 string ConstantIntegerNode::GetName()
 {
+    return "ConstantIntegerNode";
+}
 
+TypeNode *ConstantIntegerNode::ValidateSemantic()
+{
+    return new EnteroNode();
 }
 

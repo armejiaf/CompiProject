@@ -2,6 +2,8 @@
 #define SINODE_H
 #include "statementnode.h"
 #include "expressionnode.h"
+#include "typebooleanonode.h"
+#include <stdexcept>
 #include <vector>
 
 class SiNode:public StatementNode
@@ -14,8 +16,9 @@ public:
     SiNode( ExpressionNode *condicion,vector <StatementNode*> trueCode, vector<StatementNode*> falseCode);
     ~SiNode();
 
-    string ToXml();
+
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // SINODE_H

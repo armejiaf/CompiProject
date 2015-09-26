@@ -3,19 +3,21 @@
 #include "statementnode.h"
 #include "variablenode.h"
 #include "parameternode.h"
+#include "symboltable.h"
 #include <vector>
 
 class ProcedimientoNode:public StatementNode
 {
 public:
-    VariableNode * id;
+    string id;
     vector<ParameterNode*> parameters;
+    vector<StatementNode*>variables;
     vector<StatementNode*> code;
-    ProcedimientoNode( VariableNode * id,vector<ParameterNode*> parameters,vector<StatementNode*> code);
+    ProcedimientoNode( string id,vector<ParameterNode*> parameters,vector<StatementNode*>variables,vector<StatementNode*> code);
     ~ProcedimientoNode();
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // PROCEDIMIENTONODE_H

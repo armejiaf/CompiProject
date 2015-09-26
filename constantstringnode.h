@@ -1,7 +1,7 @@
 #ifndef CONSTANTSTRINGNODE_H
 #define CONSTANTSTRINGNODE_H
 #include "expressionnode.h"
-
+#include "typecadenanode.h"
 class ConstantStringNode:public ExpressionNode
 {
 public:
@@ -9,8 +9,8 @@ public:
     ConstantStringNode(string value);
     ~ConstantStringNode();
 
-    string ToXml();
     string GetName();
+    TypeNode *ValidateSemantic();
 };
 
 #endif // CONSTANTSTRINGNODE_H

@@ -15,8 +15,8 @@ public:
     CasoNode( VariableNode * idCase,vector<CasoLineNode*> cases,vector<StatementNode*> defaultNode);
     ~CasoNode();
 
-   string ToXml();
    string GetName();
+   void ValidateSemantic();
 };
 
 #endif // CASONODE_H

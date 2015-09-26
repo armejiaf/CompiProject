@@ -1,6 +1,7 @@
 #ifndef CONSTANTCHARACTERNODE_H
 #define CONSTANTCHARACTERNODE_H
 #include "expressionnode.h"
+#include "typecaracternode.h"
 
 class ConstantCharacterNode:public ExpressionNode
 {
@@ -9,8 +10,8 @@ public:
     ConstantCharacterNode(char value);
     ~ConstantCharacterNode();
 
-    string ToXml();
     string GetName();
+    TypeNode *ValidateSemantic();
 };
 
 #endif // CONSTANTCHARACTERNODE_H

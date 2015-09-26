@@ -11,13 +11,14 @@ ArregloNode::~ArregloNode()
 
 }
 
-string ArregloNode::ToXml()
-{
-
-}
 
 string ArregloNode::GetName()
 {
+    return "TypeArreglo";
+}
 
+InterpretValue *ArregloNode::GetDefaultValue()
+{
+    return new ValueArreglo();
 }
 

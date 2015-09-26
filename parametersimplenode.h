@@ -8,13 +8,13 @@
 class SimpleParameterNode:public ParameterNode
 {
 public:
-    VariableNode * id;
+    string id;
     TypeNode * type;
-    SimpleParameterNode( VariableNode * id,TypeNode * type);
+    SimpleParameterNode( string id,TypeNode * type);
     ~SimpleParameterNode();
 
-    string ToXml();
     string GetName();
+    TypeNode *ValidateSemantic();
 };
 
 #endif // SIMPLEPARAMETERNODE_H

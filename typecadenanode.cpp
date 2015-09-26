@@ -10,13 +10,13 @@ CadenaNode::~CadenaNode()
 
 }
 
-string CadenaNode::ToXml()
-{
-
-}
-
 string CadenaNode::GetName()
 {
+    return "TypeCadena";
+}
 
+InterpretValue *CadenaNode::GetDefaultValue()
+{
+    return new ValueCadena("");
 }
 

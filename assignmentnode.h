@@ -3,6 +3,7 @@
 #include "statementnode.h"
 #include "variablenode.h"
 #include "expressionnode.h"
+#include <stdexcept>
 
 class AssignmentNode:public StatementNode
 {
@@ -12,8 +13,9 @@ public:
     VariableNode* id;
     ExpressionNode* value;
 
-    string ToXml();
+
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // ASSIGNMENTNODE_H

@@ -2,7 +2,10 @@
 
 DivisionNode::DivisionNode(ExpressionNode * leftNode, ExpressionNode* rightNode):BinaryOperationNode(leftNode,rightNode)
 {
-
+    Rules["TypeEnteroxTypeEntero"]= new EnteroNode();
+    Rules["TypeRealxTypeReal"]= new RealNode();
+    Rules["TypeEnteroxTypeReal"]= new RealNode();
+    Rules["TypeRealxTypeEntero"]= new RealNode();
 }
 
 DivisionNode::~DivisionNode()
@@ -10,13 +13,10 @@ DivisionNode::~DivisionNode()
 
 }
 
-string DivisionNode::ToXml()
-{
 
-}
 
 string DivisionNode::GetName()
 {
-
+    return "DivisionNode";
 }
 

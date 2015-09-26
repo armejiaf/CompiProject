@@ -2,6 +2,8 @@
 #define LEERARCHIVONODE_H
 #include "statementnode.h"
 #include "variablenode.h"
+#include "typearchivonode.h"
+#include <stdexcept>
 
 class LeerArchivoNode:public StatementNode
 {
@@ -11,8 +13,8 @@ public:
     LeerArchivoNode(VariableNode * archive,VariableNode * data);
     ~LeerArchivoNode();
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // LEERARCHIVONODE_H

@@ -2,7 +2,7 @@
 
 OrNode::OrNode(ExpressionNode *leftNode, ExpressionNode *rightNode):BinaryOperationNode(leftNode,rightNode)
 {
-
+    Rules["TypeBooleanxTypeBoolean"]= new BooleanoNode();
 }
 
 OrNode::~OrNode()
@@ -10,13 +10,9 @@ OrNode::~OrNode()
 
 }
 
-string OrNode::ToXml()
-{
-
-}
 
 string OrNode::GetName()
 {
-
+    return "OrNode";
 }
 

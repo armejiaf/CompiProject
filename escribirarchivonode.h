@@ -2,6 +2,8 @@
 #define ESCRIBIRARCHIVONODE_H
 #include "statementnode.h"
 #include "variablenode.h"
+#include "typearchivonode.h"
+#include <stdexcept>
 
 class EscribirArchivoNode:public StatementNode
 {
@@ -11,8 +13,8 @@ public:
     EscribirArchivoNode(VariableNode * archive,VariableNode * data);
     ~EscribirArchivoNode();
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // ESCRIBIRARCHIVONODE_H

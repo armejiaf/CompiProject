@@ -6,12 +6,12 @@
 class RetorneNode:public StatementNode
 {
 public:
-    VariableNode * returnVariable;
-    RetorneNode(VariableNode * returnVariable);
+    ExpressionNode * returnVariable;
+    RetorneNode(ExpressionNode *returnVariable);
     ~RetorneNode();
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // RETORNENODE_H

@@ -10,13 +10,15 @@ EnteroNode::~EnteroNode()
 
 }
 
-string EnteroNode::ToXml()
-{
 
-}
 
 string EnteroNode::GetName()
 {
+    return "TypeEntero";
+}
 
+InterpretValue *EnteroNode::GetDefaultValue()
+{
+    return new ValueEntero(0);
 }
 

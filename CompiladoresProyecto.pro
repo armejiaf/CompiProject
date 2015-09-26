@@ -36,13 +36,11 @@ SOURCES += main.cpp \
     lessthannode.cpp \
     lessequalnode.cpp \
     equalnode.cpp \
-    notequal.cpp \
     variablenode.cpp \
     statementnode.cpp \
     accesornode.cpp \
     sinode.cpp \
     paranode.cpp \
-    assignmentnode.cpp \
     mientrasnode.cpp \
     repitanode.cpp \
     llamarnode.cpp \
@@ -65,7 +63,6 @@ SOURCES += main.cpp \
     tiponode.cpp \
     registronode.cpp \
     parentnode.cpp \
-    constanbooleannode.cpp \
     typenode.cpp \
     typebooleanonode.cpp \
     typeenteronode.cpp \
@@ -73,13 +70,26 @@ SOURCES += main.cpp \
     typerealnode.cpp \
     typecaracternode.cpp \
     typearchivonode.cpp \
-    typesecuencialnode.cpp \
     typecadenanode.cpp \
     accesorfieldnode.cpp \
     accesorindexnode.cpp \
     parameterreferencenode.cpp \
     parametersimplenode.cpp \
-    casolinenode.cpp
+    casolinenode.cpp \
+    notequalnode.cpp \
+    constantbooleannode.cpp \
+    htmlnode.cpp \
+    symboltable.cpp \
+    interpretvalue.cpp \
+    valuecadena.cpp \
+    valuearreglo.cpp \
+    valuearchivo.cpp \
+    valuebooleano.cpp \
+    valueentero.cpp \
+    valuereal.cpp \
+    valuecaracter.cpp \
+    assignmentnode.cpp \
+    accesorfunctionnode.cpp
 
 HEADERS += \
     token.h \
@@ -103,7 +113,6 @@ HEADERS += \
     lessthannode.h \
     lessequalnode.h \
     equalnode.h \
-    notequal.h \
     variablenode.h \
     statementnode.h \
     accesornode.h \
@@ -133,7 +142,6 @@ HEADERS += \
     registronode.h \
     TreeNode/expressionnode.h \
     parentnode.h \
-    constanbooleannode.h \
     typenode.h \
     typebooleanonode.h \
     typeenteronode.h \
@@ -141,10 +149,22 @@ HEADERS += \
     typerealnode.h \
     typecaracternode.h \
     typearchivonode.h \
-    typesecuencialnode.h \
     typecadenanode.h \
     accesorfieldnode.h \
     accesorindexnode.h \
     parameterreferencenode.h \
     parametersimplenode.h \
-    casolinenode.h
+    casolinenode.h \
+    notequalnode.h \
+    constantbooleannode.h \
+    htmlnode.h \
+    symboltable.h \
+    interpretvalue.h \
+    valuecadena.h \
+    valuearreglo.h \
+    valuearchivo.h \
+    valuebooleano.h \
+    valueentero.h \
+    valuereal.h \
+    valuecaracter.h \
+    accesorfunctionnode.h

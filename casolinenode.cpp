@@ -11,13 +11,9 @@ CasoLineNode::~CasoLineNode()
 
 }
 
-string CasoLineNode::ToXml()
-{
-
-}
 
 string CasoLineNode::GetName()
 {
-
+    return "CaseNode";
 }
 

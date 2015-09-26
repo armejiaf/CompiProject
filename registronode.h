@@ -3,19 +3,20 @@
 #include "statementnode.h"
 #include "variablenode.h"
 #include "declararnode.h"
+#include "symboltable.h"
 #include <vector>
 
 class RegistroNode:public StatementNode
 {
 public:
-    VariableNode * id;
-    vector<DeclararNode*> variables;
+    string id;
+    vector<StatementNode*> variables;
 
-    RegistroNode(VariableNode * id,vector<DeclararNode*> variables);
+    RegistroNode(string id,vector<StatementNode*> variables);
     ~RegistroNode();
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // REGISTRONODE_H

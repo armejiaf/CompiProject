@@ -14,7 +14,6 @@ public:
     CasoLineNode( vector<ExpressionNode*> conditions,vector<StatementNode*> code);
     ~CasoLineNode();
 
-    string ToXml();
     string GetName();
 };
 

@@ -2,6 +2,7 @@
 #define DECLARARNODE_H
 #include "statementnode.h"
 #include "typenode.h"
+#include "symboltable.h"
 #include <vector>
 
 class DeclararNode:public StatementNode
@@ -12,8 +13,8 @@ public:
     DeclararNode(TypeNode * type,vector <string> idList);
     ~DeclararNode();
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // DECLARARNODE_H

@@ -8,6 +8,9 @@ public:
 
     StatementNode();
     ~StatementNode();
+    virtual void ValidateSemantic()=0;
+
 };
+
 
 #endif // STATEMENTNODE_H

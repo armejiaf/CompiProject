@@ -1,7 +1,7 @@
 #ifndef MODNODE_H
 #define MODNODE_H
 #include "binaryoperationnode.h"
-
+#include "typeenteronode.h"
 
 class ModNode:public BinaryOperationNode
 {

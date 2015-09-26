@@ -2,7 +2,10 @@
 
 PowerNode::PowerNode(ExpressionNode *leftNode, ExpressionNode *rightNode):BinaryOperationNode(leftNode,rightNode)
 {
-
+    Rules["TypeEnteroxTypeEntero"]= new EnteroNode();
+    Rules["TypeRealxTypeReal"]= new RealNode();
+    Rules["TypeEnteroxTypeReal"]= new RealNode();
+    Rules["TypeRealxTypeEntero"]= new RealNode();
 }
 
 PowerNode::~PowerNode()
@@ -10,13 +13,8 @@ PowerNode::~PowerNode()
 
 }
 
-string PowerNode::ToXml()
-{
-
-}
-
 string PowerNode::GetName()
 {
-
+    return "PowerNode";
 }
 

@@ -2,6 +2,7 @@
 #define ARREGLONODE_H
 #include "typenode.h"
 #include "expressionnode.h"
+#include "valuearreglo.h"
 #include <vector>
 
 class ArregloNode:public TypeNode
@@ -13,8 +14,9 @@ public:
     ArregloNode(vector<int> dimensions,TypeNode * type);
     ~ArregloNode();
 
-    string ToXml();
-    string GetName();
+   string GetName();
+
+    InterpretValue *GetDefaultValue();
 };
 
 #endif // ARREGLONODE_H

@@ -1,6 +1,6 @@
 #include "constantfloatnode.h"
 
-ConstantFloatNode::ConstantFloatNode(float value)
+ConstantFloatNode::ConstantFloatNode(double value)
 {
     this->value=value;
 }
@@ -10,13 +10,13 @@ ConstantFloatNode::~ConstantFloatNode()
 
 }
 
-string ConstantFloatNode::ToXml()
-{
-
-}
-
 string ConstantFloatNode::GetName()
 {
+    return "ConstantFloatNode";
+}
 
+TypeNode *ConstantFloatNode::ValidateSemantic()
+{
+    return new RealNode();
 }
 

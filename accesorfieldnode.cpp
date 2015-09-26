@@ -10,13 +10,15 @@ FieldAccesorNode::~FieldAccesorNode()
 
 }
 
-string FieldAccesorNode::ToXml()
-{
 
-}
 
 string FieldAccesorNode::GetName()
 {
+    return "AccesorFieldNode";
+}
 
+TypeNode *FieldAccesorNode::ValidateSemantic()
+{
+    return 0;
 }
 

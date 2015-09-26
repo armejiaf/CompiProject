@@ -2,7 +2,11 @@
 
 SumNode::SumNode(ExpressionNode *leftNode, ExpressionNode *rightNode):BinaryOperationNode(leftNode,rightNode)
 {
-
+              Rules["TypeEnteroxTypeEntero"]= new EnteroNode();
+              Rules["TypeCadenaxTypeCadena"]= new CadenaNode(100);
+              Rules["TypeRealxTypeReal"]= new RealNode();
+              Rules["TypeEnteroxTypeReal"]= new RealNode();
+              Rules["TypeRealxTypeEntero"]= new RealNode();
 }
 
 SumNode::~SumNode()
@@ -10,13 +14,9 @@ SumNode::~SumNode()
 
 }
 
-string SumNode::ToXml()
-{
-    return "<SumNode>"+LeftNode->ToXml()+RightNode->ToXml()+"</SumNode>";
-}
 
 string SumNode::GetName()
 {
-
+    return "SumNode";
 }
 

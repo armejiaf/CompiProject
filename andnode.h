@@ -1,7 +1,7 @@
 #ifndef ANDNODE_H
 #define ANDNODE_H
 #include "binaryoperationnode.h"
-
+#include "typebooleanonode.h"
 class AndNode:public BinaryOperationNode
 {
 public:
@@ -9,7 +9,6 @@ public:
     ~AndNode();
 
 
-    string ToXml();
     string GetName();
 };
 

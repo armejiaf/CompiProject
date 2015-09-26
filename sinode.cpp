@@ -12,13 +12,28 @@ SiNode::~SiNode()
 
 }
 
-string SiNode::ToXml()
-{
-
-}
 
 string SiNode::GetName()
 {
+    return "SiNode";
+}
+
+void SiNode::ValidateSemantic()
+{
+    TypeNode * condicionType = condicion->ValidateSemantic();
+    if (condicionType->GetName().compare("TypeBoolean")!=0)
+        throw ("Se esperaba expresion booleana en la sentencia Si. Columna: "+to_string(column)+" Fila: "+to_string(row) );
+    if(!trueCode.empty())
+        for (unsigned int i=0;i<trueCode.size();i++)
+        {
+            trueCode[i]->ValidateSemantic();
+        }
+
+    if (!falseCode.empty())
+        for (unsigned int i=0;i<falseCode.size();i++)
+        {
+            falseCode[i]->ValidateSemantic();
+        }
 
 }
 

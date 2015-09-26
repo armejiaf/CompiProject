@@ -2,18 +2,20 @@
 #define TIPONODE_H
 #include "variablenode.h"
 #include "typenode.h"
+#include "typearchivonode.h"
 #include "statementnode.h"
+#include "symboltable.h"
 
 class TipoNode:public StatementNode
 {
 public:
-    VariableNode * id;
+    string  id;
     TypeNode * type;
-    TipoNode(VariableNode * id,TypeNode * type);
+    TipoNode(string id,TypeNode * type);
     ~TipoNode();
 
-    string ToXml();
     string GetName();
+    void ValidateSemantic();
 };
 
 #endif // TIPONODE_H

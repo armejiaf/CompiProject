@@ -12,465 +12,619 @@ void Parser::ConsumeToken()
     currenttoken->Print();
 }
 
-void Parser::Parse()
+vector<StatementNode*> Parser::Parse()
 {
-    Programa();
+    vector<StatementNode*> list = Programa();
     if (currenttoken->type != EOFi)
     {
            throw invalid_argument("Se esperaba EOF.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
     }
+    return list;
 }
-void Parser::Programa()
+vector<StatementNode*> Parser::Programa()
 {
     if(currenttoken->type == HTML)
     {
+        string html=currenttoken->lexeme;
         ConsumeToken();
-        Programa();
+        vector<StatementNode*>list=Programa();
+        list.insert(list.begin(),new HTMLNode(html));
+        return list;
     }
     else if(currenttoken->type != HTML && currenttoken->type != EOFi)
     {
-        ProgramaLpp();
-        Programa();
+        vector<StatementNode*> statements =ProgramaLpp();
+        vector<StatementNode*>list=Programa();
+
+        for(unsigned int i=0;i<statements.size();i++)
+            list.insert(list.begin(),statements.at(i));
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<StatementNode*> list;
+        return list;
     }
 }
 
-void Parser::ProgramaLpp()
+vector<StatementNode *> Parser::ProgramaLpp()
 {
-    InstructionList();
-    RegisterDeclarations();
-    VariableDeclarations();
-    FunctionDeclarations();
+    vector<StatementNode*> statements;
+
+    statements=InstructionList();
+    if(statements.size()!=0)
+    {
+        reverse(statements.begin(),statements.end());
+        return statements;
+    }
+    statements=RegisterDeclarations();
+    if(statements.size()!=0)
+    {
+        reverse(statements.begin(),statements.end());
+        return statements;
+    }
+    statements=VariableDeclarations();
+    if(statements.size()!=0)
+    {
+        reverse(statements.begin(),statements.end());
+        return statements;
+    }
+    statements=FunctionDeclarations();
+    if(statements.size()!=0)
+    {
+        reverse(statements.begin(),statements.end());
+        return statements;
+    }
+    return statements;
 }
-void Parser::FunctionDeclarations()
+vector<StatementNode*> Parser::FunctionDeclarations()
 {
     if(currenttoken->type == Funcion || currenttoken->type == Procedimiento)
     {
-        FunctionDeclaration();
-        FunctionDeclarations();
+        StatementNode * function = FunctionDeclaration();
+        vector<StatementNode*> list =FunctionDeclarations();
+        list.insert(list.begin(),function);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<StatementNode*>list;
+        return list;
     }
 }
-void Parser::RegisterDeclarations()
+vector<StatementNode*>Parser::RegisterDeclarations()
 {
     if(currenttoken->type == Registro || currenttoken->type == Tipo)
     {
-        RegisterDeclaration();
-        RegisterDeclarations();
+        StatementNode * statement = RegisterDeclaration();
+        vector <StatementNode*> list=RegisterDeclarations();
+        list.insert(list.begin(),statement);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<StatementNode*> list;
+        return list;
     }
 }
-void Parser::RegisterDeclaration()
+StatementNode* Parser::RegisterDeclaration()
 {
     if(currenttoken->type == Registro)
     {
         ConsumeToken();
         if(currenttoken->type != Id)
                 throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+
+        string id= currenttoken->lexeme;
         ConsumeToken();
-        VariableDeclarations();
+        vector<StatementNode*> variables=VariableDeclarations();
         if(currenttoken->type != Fin)
                 throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
         if(currenttoken->type != Registro)
             throw invalid_argument("Se esperaba palabra reservada Registro.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
+        return new RegistroNode(id,variables);
     }
     else if(currenttoken->type == Tipo)
     {
         ConsumeToken();
         if(currenttoken->type != Id)
                 throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        string id=currenttoken->lexeme;
         ConsumeToken();
         if(currenttoken->type != Es)
                 throw invalid_argument("Se esperaba palabra reservada es.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
-        Type();
+        TypeNode* type=Type();
+        return new TipoNode(id,type);
     }
 }
 
-void Parser::FunctionDeclaration()
-{
-    if(currenttoken->type == Funcion || currenttoken->type == Procedimiento)
-    {
-        FunctionHeader();
-        VariableDeclarations();
-        if(currenttoken->type != Inicio)
-                throw invalid_argument("Se esperaba palabra reservada inicio.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-        ConsumeToken();
-        InstructionList();
-        if(currenttoken->type != Fin)
-                throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-        ConsumeToken();
-    }
-    else
-    {
-        //Epsilon
-    }
-}
-void Parser::FunctionHeader()
+StatementNode* Parser::FunctionDeclaration()
 {
     if(currenttoken->type == Funcion)
     {
         ConsumeToken();
         if(currenttoken->type != Id)
                 throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        string idFunction = currenttoken->lexeme;
         ConsumeToken();
-        FunctionArguments();
+        vector<ParameterNode*> parameters=FunctionArguments();
+
         if(currenttoken->type != Colon)
             throw invalid_argument("Se esperaba :.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
-        Type();
+        TypeNode * typeFunction =Type();
+
+        vector<StatementNode*> variables=VariableDeclarations();
+        if(currenttoken->type != Inicio)
+                throw invalid_argument("Se esperaba palabra reservada inicio.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        vector<StatementNode*> instList=InstructionList();
+        if(currenttoken->type != Fin)
+                throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        return new FuncionNode(idFunction,typeFunction,parameters,variables,instList);
     }
     else if(currenttoken->type == Procedimiento)
     {
         ConsumeToken();
         if(currenttoken->type != Id)
                 throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        string id=currenttoken->lexeme;
         ConsumeToken();
-        FunctionArguments();
+        vector<ParameterNode*> parameters=FunctionArguments();
+
+        vector<StatementNode*> variables=VariableDeclarations();
+        if(currenttoken->type != Inicio)
+                throw invalid_argument("Se esperaba palabra reservada inicio.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        vector<StatementNode*>instList=InstructionList();
+        if(currenttoken->type != Fin)
+                throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        return new ProcedimientoNode(id,parameters,variables,instList);
     }
 }
-void Parser::FunctionArguments()
+
+vector<ParameterNode*> Parser::FunctionArguments()
 {
     if(currenttoken->type == OpenParenthesis)
     {
         ConsumeToken();
-        ParameterList();
+        vector<ParameterNode*> list=ParameterList();
         if(currenttoken->type != CloseParenthesis)
                 throw invalid_argument("Se esperaba ).  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<ParameterNode*>list;
+        return list;
     }
 
 
 }
-void Parser::ParameterList()
+vector<ParameterNode*> Parser::ParameterList()
 {
     if(currenttoken->type == ParameterVariable || IsType(currenttoken) )
     {
-        ParameterDeclaration();
-        ParameterListPrime();
+        ParameterNode * parameter =ParameterDeclaration();
+        vector<ParameterNode*> list =ParameterListPrime();
+        list.insert(list.begin(),parameter);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<ParameterNode*> list;
+        return list;
     }
 }
-void Parser::ParameterDeclaration()
+ParameterNode* Parser::ParameterDeclaration()
 {
     if(currenttoken->type == ParameterVariable)
     {
         ConsumeToken();
-        Type();
+        TypeNode * type=Type();
         if(currenttoken->type != Id)
             throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        string id=currenttoken->lexeme;
         ConsumeToken();
+        return new ReferenceParameterNode(id,type);
     }
     else
     {
-        Type();
+        TypeNode * type=Type();
         if(currenttoken->type != Id)
             throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        string id=currenttoken->lexeme;
         ConsumeToken();
+        return new SimpleParameterNode(id,type);
     }
 }
-void Parser::ParameterListPrime()
+vector<ParameterNode*> Parser::ParameterListPrime()
 {
     if(currenttoken->type == Coma)
     {
         ConsumeToken();
-        ParameterDeclaration();
-        ParameterListPrime();
+        ParameterNode* parameter=ParameterDeclaration();
+        vector<ParameterNode*> list=ParameterListPrime();
+        list.insert(list.begin(),parameter);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<ParameterNode*> list;
+        return list;
     }
 }
 
-void Parser::InstructionList()
+vector<StatementNode*> Parser::InstructionList()
 {
     if(IsInstruccion(currenttoken))
     {
-        Instruction();
-        InstructionList();
+        StatementNode* inst=Instruction();
+        vector<StatementNode*> list=InstructionList();
+        list.insert(list.begin(),inst);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<StatementNode*> list;
+        return list;
     }
 }
 
-void Parser::Instruction()
+StatementNode* Parser::Instruction()
 {
     if(currenttoken->type == Si)
     {
-        SiInstruction();
-    }
-    else if(currenttoken->type == Para)
-    {
-        ParaInstruction();
-    }
-    else if(currenttoken->type == Id)
-    {
-        ValueAllocInstruction();
-    }
-    else if(currenttoken->type == Escriba)
-    {
-        EscribaInstruction();
-    }
-    else if(currenttoken->type == Mientras)
-    {
-        MientrasInstruction();
-    }
-    else if(currenttoken->type == Repita)
-    {
-        RepitaInstruction();
-    }
-    else if(currenttoken->type == Caso)
-    {
-        CasoInstruction();
-    }
-    else if(currenttoken->type == Abrir)
-    {
-        AbrirArchiveInstruction();
-    }
-    else if(currenttoken->type == Cerrar)
-    {
-        CerrarArchiveInstruction();
-    }
-    else if(currenttoken->type == Leer)
-    {
-        LeerArchiveInstruction();
-    }
-    else if(currenttoken->type == Escribir)
-    {
-        EscribirArchiveInstruction();
-    }
-    else if(currenttoken->type == Llamar)
-    {
-        LlamarInstruction();
-    }
-    else if(currenttoken->type == Retorne)
-    {
-        RetorneInstruction();
-    }
-}
-void Parser::SiInstruction()
-{
         ConsumeToken();
-        Expresion();
+        ExpressionNode* condition=Expresion();
         if(currenttoken->type != Entonces)
             throw invalid_argument("Se esperaba palabra reservada entonces.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
-        InstructionList();
-        SiInstructionPrime();
-}
-void Parser::Expresion()
-{
-    ExpresionInequalities();
-    ConditionalExpresion();
-}
-void Parser::ExpresionInequalities()
-{
-    SubExpresion();
-    ExpresionInequalitiesPrime();
-}
-void Parser::SubExpresion()
-{
-    Term();
-    SubExpresionPrime();
-}
-void Parser::Term()
-{
-    Power();
-    TermPrime();
-}
-void Parser::Negated()
-{
-    Factors();
-    NegatedPrime();
-}
-void Parser::Power()
-{
-    Negated();
-    PowerPrime();
-}
-void Parser::Factors()
-{
-    if(currenttoken->type == Id)
-            Variable();
-    else if(currenttoken->type == OpenParenthesis){
-            ConsumeToken();
-            Expresion();
-            if(currenttoken->type != CloseParenthesis)
-                throw invalid_argument("Se esperaba ).  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-            ConsumeToken();
+        vector<StatementNode*> codeTrue=InstructionList();
+        vector<StatementNode*> codeFalse=SiInstructionPrime();
+        return new SiNode(condition,codeTrue,codeFalse);
     }
-    else if(IsLiteral(currenttoken))
-    {
-        Literal();
-    }
-    else if(currenttoken->type == Verdadero)
+    else if(currenttoken->type == Para)
     {
         ConsumeToken();
-    }
-    else if(currenttoken->type == Falso)
-    {
+        VariableNode * id=Variable();
+        if(currenttoken->type != ValueAllocation)
+            throw invalid_argument("Se esperaba <-.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
-    }
+        ExpressionNode* value=Expresion();
 
+        if(currenttoken->type != Hasta)
+            throw invalid_argument("Se esperaba palabra reservada hasta.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        ExpressionNode* condition = Expresion();
+        if(currenttoken->type != Haga)
+            throw invalid_argument("Se esperaba palabra reservada haga.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        vector<StatementNode*> code =InstructionList();
+        if(currenttoken->type != Fin)
+            throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        if(currenttoken->type != Para)
+            throw invalid_argument("Se esperaba palabra reservada para.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        return new ParaNode(new AssignmentNode(id,value),condition,code);
+    }
+    else if(currenttoken->type == Id)
+    {
+        VariableNode* id=Variable();
+        if(currenttoken->type != ValueAllocation)
+            throw invalid_argument("Se esperaba <-.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        ExpressionNode* expression=Expresion();
+        return new AssignmentNode(id,expression);
+    }
+    else if(currenttoken->type == Escriba)
+    {
+        ConsumeToken();
+        vector<ExpressionNode*> exprList=ExpressionListNotNull();
+        return new EscribaNode(exprList);
+    }
+    else if(currenttoken->type == Mientras)
+    {
+        ConsumeToken();
+        ExpressionNode * condition=Expresion();
+        if(currenttoken->type != Haga)
+            throw invalid_argument("Se esperaba palabra reservada haga.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        vector<StatementNode*>code=InstructionList();
+        if(currenttoken->type != Fin)
+            throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        if(currenttoken->type != Mientras)
+            throw invalid_argument("Se esperaba palabra reservada mientras.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        return new MientrasNode(condition,code);
+    }
+    else if(currenttoken->type == Repita)
+    {
+        ConsumeToken();
+        vector<StatementNode*> code=InstructionList();
+        if(currenttoken->type != Hasta)
+            throw invalid_argument("Se esperaba palabra reservada hasta.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        ExpressionNode*condition=Expresion();
+        return new RepitaNode(code,condition);
+    }
+    else if(currenttoken->type == Caso)
+    {
+        ConsumeToken();
+        VariableNode * id=Variable();
+        vector<CasoLineNode*> cases=CasoList();
+        vector<StatementNode*> defaultcase=CasoSino();
+        if(currenttoken->type != Fin)
+            throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        if(currenttoken->type != Caso)
+            throw invalid_argument("Se esperaba palabra reservada caso.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        return new CasoNode(id,cases,defaultcase);
+    }
+    else if(currenttoken->type == Abrir)
+    {
+        ConsumeToken();
+        string archiveId=Archive();
+        if(currenttoken->type != Como)
+            throw invalid_argument("Se esperaba palabra reservada como.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        VariableNode* archiveType=Variable();
+        vector<ModeNode*> modes=ModeList();
+        return new AbrirArchivoNode(archiveId,archiveType,modes);
+    }
+    else if(currenttoken->type == Cerrar)
+    {
+        ConsumeToken();
+        VariableNode* id= Variable();
+        return new CerrarArchivoNode(id);
+    }
+    else if(currenttoken->type == Leer)
+    {
+        ConsumeToken();
+        VariableNode* archive=Variable();
+        if(currenttoken->type != Coma)
+            throw invalid_argument("Se esperaba ,.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        VariableNode* data=Variable();
+        return new LeerArchivoNode(archive,data);
+    }
+    else if(currenttoken->type == Escribir)
+    {
+        ConsumeToken();
+        VariableNode* archive=Variable();
+        if(currenttoken->type != Coma)
+            throw invalid_argument("Se esperaba ,.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        VariableNode* data=Variable();
+        return new EscribirArchivoNode(archive,data);
+    }
+    else if(currenttoken->type == Llamar)
+    {
+        ConsumeToken();
+        if(currenttoken->type != Id)
+            throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        string id=currenttoken->lexeme;
+        ConsumeToken();
+        vector<ExpressionNode*> parameters=Parameters();
+        return new LlamarNode(id,parameters);
+    }
+    else if(currenttoken->type == Retorne)
+    {
+        ConsumeToken();
+        ExpressionNode* id=Expresion();
+        return new RetorneNode(id);
+    }
 }
-void Parser::PowerPrime()
+
+ExpressionNode* Parser::Expresion()
+{
+    ExpressionNode * expression =ExpresionInequalities();
+    return ConditionalExpresion(expression);
+}
+ExpressionNode* Parser::ExpresionInequalities()
+{
+    ExpressionNode *expression=SubExpresion();
+    return ExpresionInequalitiesPrime(expression);
+}
+ExpressionNode* Parser::SubExpresion()
+{
+    ExpressionNode* expression=Term();
+    return SubExpresionPrime(expression);
+}
+ExpressionNode *Parser::Term()
+{
+    ExpressionNode * expression=Power();
+    return TermPrime(expression);
+}
+ExpressionNode* Parser::PowerPrime(ExpressionNode*param)
 {
     if(currenttoken->type == Exponentiation)
     {
         ConsumeToken();
-        Negated();
-        PowerPrime();
+        ExpressionNode* expression=Negated();
+        return PowerPrime(new PowerNode(param,expression));
     }
     else
     {
-        //Epsilon
+        return param;
     }
 }
 
-void Parser::NegatedPrime()
-{
-    if(currenttoken->type == No)
-    {
-        ConsumeToken();
-        Factors();
-        NegatedPrime();
-    }
-    else
-    {
-        //Epsilon
-    }
-}
 
-void Parser::TermPrime()
+ExpressionNode* Parser::TermPrime(ExpressionNode* param)
 {
     if(currenttoken->type == Multiplication)
     {
         ConsumeToken();
-        Power();
-        TermPrime();
+        ExpressionNode* expression=Power();
+        return TermPrime(new MultiplicationNode(param,expression));
     }
     else if(currenttoken->type == RealDivision)
     {
         ConsumeToken();
-        Power();
-        TermPrime();
+        ExpressionNode* expression=Power();
+        return TermPrime(new DivisionNode(param,expression));
     }
     else if(currenttoken->type == IntegerDivision)
     {
         ConsumeToken();
-        Power();
-        TermPrime();
+        ExpressionNode* expression=Power();
+        return TermPrime(new DivNode(param,expression));
     }
     else if(currenttoken->type == Mod)
     {
         ConsumeToken();
-        Power();
-        TermPrime();
+        ExpressionNode* expression=Power();
+        return TermPrime(new ModNode(param,expression));
     }
     else
     {
-        //Epsilon
+        return param;
     }
 }
 
-void Parser::SubExpresionPrime()
+ExpressionNode* Parser::SubExpresionPrime(ExpressionNode* param)
 {
     if(currenttoken->type == Sum)
     {
         ConsumeToken();
-        Term();
-        SubExpresionPrime();
+        ExpressionNode* expression=Term();
+        return SubExpresionPrime(new SumNode(param,expression));
     }
     else if(currenttoken->type == Substraction)
     {
         ConsumeToken();
-        Term();
-        SubExpresionPrime();
+        ExpressionNode* expression=Term();
+        return SubExpresionPrime(new SubstractionNode(param,expression));
     }
     else
     {
-        //Epsilon
+        return param;
     }
 }
 
-void Parser::ExpresionInequalitiesPrime()
+ExpressionNode* Parser::ExpresionInequalitiesPrime(ExpressionNode* param)
 {
     if(currenttoken->type == GreaterThan)
     {
         ConsumeToken();
-        SubExpresion();
+        ExpressionNode*expression=SubExpresion();
+        return new GreaterThanNode(param,expression);
     }
     else if(currenttoken->type == LessThan)
     {
         ConsumeToken();
-        SubExpresion();
+        ExpressionNode*expression=SubExpresion();
+        return new LessThanNode(param,expression);
     }
     else if(currenttoken->type == GreaterEqual)
     {
         ConsumeToken();
-        SubExpresion();
+        ExpressionNode*expression=SubExpresion();
+        return new GreaterEqualNode(param,expression);
     }
     else if(currenttoken->type == LessEqual)
     {
         ConsumeToken();
-        SubExpresion();
+        ExpressionNode*expression=SubExpresion();
+        return new LessEqualNode(param,expression);
     }
     else if(currenttoken->type == Equal)
     {
         ConsumeToken();
-        SubExpresion();
+        ExpressionNode*expression=SubExpresion();
+        return new EqualNode(param,expression);
     }
     else if(currenttoken->type == NotEqual)
     {
         ConsumeToken();
-        SubExpresion();
+        ExpressionNode*expression=SubExpresion();
+        return new NotEqualNode(param,expression);
     }
     else
     {
-        //Epsilon
+        return param;
     }
 }
 
-void Parser::ConditionalExpresion()
+ExpressionNode *Parser::ConditionalExpresion(ExpressionNode * param)
 {
     if(currenttoken->type == Or)
     {
         ConsumeToken();
-        Expresion();
+        ExpressionNode* expression=Expresion();
+        return new OrNode(param,expression);
     }
     else if(currenttoken->type == And)
     {
         ConsumeToken();
-        Expresion();
+        ExpressionNode* expression=Expresion();
+        return new AndNode(param,expression);
     }
     else
     {
-        //Epsilon
+        return param;
     }
 }
 
-void Parser::SiInstructionPrime()
+ExpressionNode* Parser::Negated()
+{
+    if(currenttoken->type == No)
+    {
+        ConsumeToken();
+        ExpressionNode* expression =Factors();
+        return new NegatedNode(0,expression);
+    }
+    else
+    {
+        return Factors();
+    }
+}
+ExpressionNode* Parser::Power()
+{
+    ExpressionNode* expression=Negated();
+    return PowerPrime(expression);
+}
+ExpressionNode* Parser::Factors()
+{
+    if(currenttoken->type == Id)
+            return Variable();
+    else if(currenttoken->type == OpenParenthesis){
+            ConsumeToken();
+            ExpressionNode * value = Expresion();
+            if(currenttoken->type != CloseParenthesis)
+                throw invalid_argument("Se esperaba ).  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+            ConsumeToken();
+            return value;
+    }
+    else if(IsLiteral(currenttoken))
+    {
+        return Literal();
+    }
+    else if(currenttoken->type == Verdadero)
+    {
+        ConsumeToken();
+        return new ConstantBooleanNode(true);
+    }
+    else if(currenttoken->type == Falso)
+    {
+        ConsumeToken();
+        return new ConstantBooleanNode(false);
+    }
+
+}
+
+
+vector<StatementNode*> Parser::SiInstructionPrime()
 {
     if(currenttoken->type == Fin)
     {
@@ -478,452 +632,420 @@ void Parser::SiInstructionPrime()
         if(currenttoken->type != Si)
             throw invalid_argument("Se esperaba palabra reservada si.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
-    }else if(currenttoken->type == Sino)
+        vector<StatementNode*> list;
+        return list;
+    }
+    else if(currenttoken->type == Sino)
     {
         ConsumeToken();
-        InstructionList();
+        vector<StatementNode*> instList=InstructionList();
         if(currenttoken->type != Fin)
             throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
         if(currenttoken->type != Si)
             throw invalid_argument("Se esperaba palabra reservada si.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
+        return instList;
     }
 }
 
-void Parser::ParaInstruction()
+vector<CasoLineNode*> Parser:: CasoList()
 {
-    ConsumeToken();
-    Variable();
-    if(currenttoken->type != ValueAllocation)
-        throw invalid_argument("Se esperaba <-.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    Expresion();
-    if(currenttoken->type != Hasta)
-        throw invalid_argument("Se esperaba palabra reservada hasta.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    Expresion();
-    if(currenttoken->type != Haga)
-        throw invalid_argument("Se esperaba palabra reservada haga.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    InstructionList();
-    if(currenttoken->type != Fin)
-        throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    if(currenttoken->type != Para)
-        throw invalid_argument("Se esperaba palabra reservada para.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
+        CasoLineNode* caseline=CasoLine();
+        vector<CasoLineNode*> cases=CasoListPrime();
+        cases.insert(cases.begin(),caseline);
+        return cases;
 }
-void Parser::ValueAllocInstruction()
+CasoLineNode* Parser::CasoLine()
 {
-    Variable();
-    if(currenttoken->type != ValueAllocation)
-        throw invalid_argument("Se esperaba <-.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    Expresion();
-}
-void Parser::EscribaInstruction()
-{
-    ConsumeToken();
-    ExpressionListNotNull();
-}
-void Parser::MientrasInstruction()
-{
-    ConsumeToken();
-    Expresion();
-    if(currenttoken->type != Haga)
-        throw invalid_argument("Se esperaba palabra reservada haga.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    InstructionList();
-    if(currenttoken->type != Fin)
-        throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    if(currenttoken->type != Mientras)
-        throw invalid_argument("Se esperaba palabra reservada mientras.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-}
-void Parser::RepitaInstruction()
-{
-    ConsumeToken();
-    InstructionList();
-    if(currenttoken->type != Hasta)
-        throw invalid_argument("Se esperaba palabra reservada hasta.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    Expresion();
-}
-void Parser::CasoInstruction()
-{
-    ConsumeToken();
-    Variable();
-    CasoList();
-    CasoSino();
-    if(currenttoken->type != Fin)
-        throw invalid_argument("Se esperaba palabra reservada fin.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    if(currenttoken->type != Caso)
-        throw invalid_argument("Se esperaba palabra reservada caso.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-}
-void Parser:: CasoList()
-{
-        CasoLine();
-        CasoListPrime();
-}
-void Parser::CasoLine()
-{
-    LiteralList();
+    vector<ExpressionNode*> conditions=LiteralList();
     if(currenttoken->type != Colon)
         throw invalid_argument("Se esperaba :.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
     ConsumeToken();
-    InstructionList();
+    vector<StatementNode*> code=InstructionList();
+    return new CasoLineNode(conditions,code);
 }
 
-void Parser::LiteralList()
+vector<ExpressionNode*> Parser::LiteralList()
 {
-    Literal();
-    LiteralListPrime();
+    ExpressionNode * value=Literal();
+    vector<ExpressionNode*> list=LiteralListPrime();
+    list.insert(list.begin(),value);
+    return list;
 }
 
-void Parser::Literal()
+ExpressionNode* Parser::Literal()
 {
     if(currenttoken->type == EnteroNumber)
     {
+        int value=atoi(currenttoken->lexeme.c_str());
         ConsumeToken();
+        return new ConstantIntegerNode(value);
     }
     else if(currenttoken->type == RealNumber)
     {
+        double value=atof(currenttoken->lexeme.c_str());
         ConsumeToken();
+        return new ConstantFloatNode (value);
     }
     else if(currenttoken->type == Substraction)
     {
         ConsumeToken();
         if(!IsLiteralNumber(currenttoken))
             throw invalid_argument("Se esperaba un numero entero o real.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-        ConsumeToken();
+        if(currenttoken->type == EnteroNumber)
+        {
+            int value=atoi(currenttoken->lexeme.c_str())*-1;
+            ConsumeToken();
+            return new ConstantIntegerNode(value);
+        }
+        else if(currenttoken->type == RealNumber)
+        {
+            double value=atof(currenttoken->lexeme.c_str())*-1;
+            ConsumeToken();
+            return new ConstantFloatNode (value);
+        }
     }
     else if(currenttoken->type == Character)
     {
+        char value = currenttoken->lexeme[0];
         ConsumeToken();
+        return new ConstantCharacterNode(value);
     }
     else if(currenttoken->type == Str)
     {
+        string value = currenttoken->lexeme;
         ConsumeToken();
+        return new ConstantStringNode(value);
     }
 }
 
 
 
-void Parser::LiteralListPrime()
+vector<ExpressionNode*> Parser::LiteralListPrime()
 {
     if(currenttoken->type==Coma)
     {
         ConsumeToken();
-        Literal();
-        LiteralListPrime();
+        ExpressionNode * value=Literal();
+        vector<ExpressionNode*> list=LiteralListPrime();
+        list.insert(list.begin(),value);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<ExpressionNode*>list;
+        return list;
     }
 }
 
-void Parser::CasoListPrime()
+vector<CasoLineNode*> Parser::CasoListPrime()
 {
     if(IsLiteral(currenttoken))
     {
-        CasoList();
+        return CasoList();
     }
     else
     {
-        //Epsilon
+        vector<CasoLineNode*> cases;
+        return cases;
     }
 }
 
-void Parser:: CasoSino()
+vector<StatementNode*> Parser:: CasoSino()
 {
     if(currenttoken->type == Sino){
             ConsumeToken();
             if(currenttoken->type != Colon)
                 throw invalid_argument("Se esperaba :.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
             ConsumeToken();
-            InstructionList();
-        }else{
-            //Epsilon
+            return InstructionList();
         }
+    else{
+        vector<StatementNode*> list;
+        return list;
+    }
 }
 
-void Parser::AbrirArchiveInstruction()
-{
-    ConsumeToken();
-    Archive();
-    if(currenttoken->type != Como)
-        throw invalid_argument("Se esperaba palabra reservada como.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    Variable();
-    ModeList();
-}
-void Parser::Archive()
+string Parser::Archive()
 {
     if(currenttoken->type == Str)
     {
+        string toReturn= currenttoken->lexeme;
         ConsumeToken();
-    }
-    else if(currenttoken->type == Id)
-    {
-        ConsumeToken();
+        return toReturn;
     }
     else
     {
-        throw invalid_argument("Se esperaba Id o String.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        throw invalid_argument("Se necesita String del archivo.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
     }
 }
 
-void Parser::ModeList()
+vector<ModeNode*> Parser::ModeList()
 {
     if(currenttoken->type == Para)
     {
         ConsumeToken();
-        Mode();
-        ModeListPrime();
+        ModeNode* mode=Mode();
+        vector<ModeNode*> list=ModeListPrime();
+        list.push_back(mode);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<ModeNode*> list;
+        return list;
     }
 }
-void Parser::Mode()
+ModeNode* Parser::Mode()
 {
     if(currenttoken->type == Escritura)
     {
+        string mode=currenttoken->lexeme;
         ConsumeToken();
+        return new ModeNode(mode);
     }
     else if(currenttoken->type == Lectura)
     {
+        string mode=currenttoken->lexeme;
         ConsumeToken();
+        return new ModeNode(mode);
     }
 }
-void Parser::ModeListPrime()
+vector<ModeNode*> Parser::ModeListPrime()
 {
     if(currenttoken->type == Coma)
     {
         ConsumeToken();
-        Mode();
+        ModeNode* mode =Mode();
+        vector<ModeNode*> list;
+        list.push_back(mode);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<ModeNode*> list;
+        return list;
     }
 }
 
-void Parser::CerrarArchiveInstruction()
-{
-    ConsumeToken();
-    Variable();
-}
-void Parser::LeerArchiveInstruction()
-{
-    ConsumeToken();
-    Variable();
-    if(currenttoken->type != Coma)
-        throw invalid_argument("Se esperaba ,.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    Variable();
-}
-void Parser::EscribirArchiveInstruction()
-{
-    ConsumeToken();
-    Variable();
-    if(currenttoken->type != Coma)
-        throw invalid_argument("Se esperaba ,.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    Variable();
-}
-void Parser::LlamarInstruction()
-{
-    ConsumeToken();
-    if(currenttoken->type != Id)
-        throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    ConsumeToken();
-    Parameters();
-}
-void Parser::Parameters()
+vector<ExpressionNode*> Parser::Parameters()
 {
     if(currenttoken->type == OpenParenthesis)
     {
         ConsumeToken();
-        ExpresionListNull();
+        vector<ExpressionNode*> parameters=ExpresionListNull();
         if(currenttoken->type != CloseParenthesis)
             throw invalid_argument("Se esperaba ).  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
+        return parameters;
     }
     else
     {
-        //Epsilon
+        vector<ExpressionNode*> parameters;
+        return parameters;
     }
 }
-void Parser::ExpresionListNull()
+vector<ExpressionNode*> Parser::ExpresionListNull()
 {
     if(currenttoken->type != CloseParenthesis)
     {
-        Expresion();
-        ExpresionListNotNullPrime();
+        ExpressionNode* expression=Expresion();
+        vector<ExpressionNode*> list=ExpresionListNotNullPrime();
+        list.insert(list.begin(),expression);
+        return list;
+    }
+    else{
+        vector<ExpressionNode*> list;
+        return list;
     }
 }
 
-void Parser::ExpressionListNotNull()
+vector<ExpressionNode*> Parser::ExpressionListNotNull()
 {
-    Expresion();
-    ExpresionListNotNullPrime();
+    if(currenttoken->type == CloseBracket)
+        throw invalid_argument("Se esperaban dimensiones.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+    ExpressionNode* expression=Expresion();
+    vector<ExpressionNode*> list=ExpresionListNotNullPrime();
+    list.insert(list.begin(),expression);
+    return list;
 }
-void Parser::ExpresionListNotNullPrime()
+vector<ExpressionNode*> Parser::ExpresionListNotNullPrime()
 {
     if(currenttoken->type == Coma)
     {
         ConsumeToken();
-        Expresion();
-        ExpresionListNotNullPrime();
+        ExpressionNode* expression=Expresion();
+        vector<ExpressionNode*> list=ExpresionListNotNullPrime();
+        list.insert(list.begin(),expression);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<ExpressionNode*> list;
+        return list;
     }
 }
 
-void Parser::RetorneInstruction()
-{
-   ConsumeToken();
-    Variable();
-}
-void Parser::Variable()
+VariableNode *Parser::Variable()
 {
     if(currenttoken->type != Id)
-        throw invalid_argument("Se esperaba ].  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+    string id = currenttoken->lexeme;
     ConsumeToken();
-    VariablePrime();
+    vector<AccesorNode*> list = VariablePrime();
+    return new VariableNode(id,list);
 }
 
 
 
-void Parser::VariablePrime()
+vector<AccesorNode*> Parser::VariablePrime()
 {
     if(currenttoken->type == OpenParenthesis)
     {
         ConsumeToken();
-        ExpresionListNull();
+        vector<ExpressionNode*> parameters=ExpresionListNull();
         if(currenttoken->type != CloseParenthesis)
             throw invalid_argument("Se esperaba ).  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
+        vector<AccesorNode*> list;
+        list.push_back(new FunctionAccesorNode(parameters));
+        return list;
     }
     else
     {
-        AccesorList();
+        return AccesorList();
     }
 }
 
-void Parser::AccesorList()
+vector<AccesorNode*> Parser::AccesorList()
 {
     if(currenttoken->type == Period)
     {
         ConsumeToken();
         if(currenttoken->type != Id)
             throw invalid_argument("Se esperaba id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        string id=currenttoken->lexeme;
         ConsumeToken();
-        AccesorList();
+        vector<AccesorNode*>list=AccesorList();
+        list.insert(list.begin(),new FieldAccesorNode(id) );
+        return list;
     }
     else if(currenttoken->type == OpenBracket)
     {
         ConsumeToken();
-        ExpressionListNotNull();
+        vector <ExpressionNode*> indexes=ExpressionListNotNull();
         if(currenttoken->type != CloseBracket)
             throw invalid_argument("Se esperaba ].  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
-        AccesorList();
+        vector<AccesorNode*> list=AccesorList();
+        list.insert(list.begin(),new IndexAccesorNode(indexes));
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<AccesorNode*> list;
+        return list;
     }
 }
 
 
-void Parser::VariableDeclarations()
+vector<StatementNode*> Parser::VariableDeclarations()
 {
     if(currenttoken->type == DECLARAR){
         ConsumeToken();
-        DeclarationLine();
-        VariableDeclarations();
+        DeclararNode* variable=DeclarationLine();
+        vector<StatementNode*> list=VariableDeclarations();
+        list.insert(list.begin(),variable);
+        return list;
     }
     else
     {
-        //Epsilon
+        vector<StatementNode*> list;
+        return list;
     }
-
 }
-void Parser::DeclarationLine()
+DeclararNode* Parser::DeclarationLine()
 {
-    Type();
-    IdList();
-
+    TypeNode * type = Type();
+    vector<string> idlist=IdList();
+    return new DeclararNode(type,idlist);
 }
 
-void Parser::IdList()
+vector<string> Parser::IdList()
 {
     if(currenttoken->type != Id)
         throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+    string id = currenttoken->lexeme;
     ConsumeToken();
-    IdListPrime();
+    vector<string> idlist=IdListPrime();
+    idlist.insert(idlist.begin(),id);
+    return idlist;
 }
-void Parser::IdListPrime()
+vector<string> Parser::IdListPrime()
 {
     if(currenttoken->type == Coma)
     {
         ConsumeToken();
         if(currenttoken->type!=Id)
             throw invalid_argument("Se esperaba un id.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        string id = currenttoken->lexeme;
         ConsumeToken();
-        IdListPrime();
+        vector<string> idlist=IdListPrime();
+        idlist.insert(idlist.begin(),id);
+        return idlist;
     }
     else
     {
-        //Epsilon
+        vector<string> list;
+        return list;
     }
 }
 
-void Parser::Type()
+TypeNode* Parser::Type()
 {
-    if(currenttoken->type == Id)
-    {
-        ConsumeToken();
-    }
-    else if(currenttoken->type == Arreglo)
+    if(currenttoken->type == Arreglo)
     {
         ConsumeToken();
         if(currenttoken->type != OpenBracket)
             throw invalid_argument("Se esperaba [.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
-        IntList();
+        vector<int> dimensions=IntList();
         if(currenttoken->type != CloseBracket)
             throw invalid_argument("Se esperaba ].  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
         if(currenttoken->type != De)
             throw invalid_argument("Se esperaba palabra reservada de.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
-        Type();
+        TypeNode*type=Type();
+        return new ArregloNode(dimensions,type);
     }
 
-    else if(currenttoken->type == Entero)
+    else if(currenttoken->type == Entero){
         ConsumeToken();
+        return new EnteroNode();
+    }
 
-    else if(currenttoken->type == Real)
+    else if(currenttoken->type == Real){
         ConsumeToken();
-    else if(currenttoken->type == Booleano)
+        return new RealNode();
+    }
+    else if(currenttoken->type == Booleano){
         ConsumeToken();
-    else if(currenttoken->type == Caracter)
+        return new BooleanoNode();
+    }
+    else if(currenttoken->type == Caracter){
         ConsumeToken();
+        return new CaracterNode();
+    }
     else if(currenttoken->type == Archivo)
     {
         ConsumeToken();
-        ArchiveType();
+        if (currenttoken->type != Secuencial)
+            throw invalid_argument("Se esperaba palabra reservada secuencial.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        ConsumeToken();
+        return new ArchivoNode();
+
     }
     else if(currenttoken->type == Cadena)
     {
@@ -933,47 +1055,42 @@ void Parser::Type()
         ConsumeToken();
         if(currenttoken->type != EnteroNumber )
             throw invalid_argument("Se esperaba numero entero.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        int size = atoi(currenttoken->lexeme.c_str());
         ConsumeToken();
         if(currenttoken->type != CloseBracket)
             throw invalid_argument("Se esperaba ].  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         ConsumeToken();
-
+        return new CadenaNode(size);
     }
-    /*else
-        throw invalid_argument("Se esperaba un tipo de dato.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
-    */
 }
-void Parser::IntList()
+vector<int> Parser::IntList()
 {
     if(currenttoken->type != EnteroNumber)
         throw invalid_argument("Se esperaba numero entero.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+    int dimension = atoi(currenttoken->lexeme.c_str());
     ConsumeToken();
-    IntListPrime();
+    vector<int> dimensions=IntListPrime();
+    dimensions.insert(dimensions.begin(),dimension);
+    return dimensions;
 }
-void Parser::IntListPrime()
+vector<int> Parser::IntListPrime()
 {
     if(currenttoken->type == Coma)
     {
         ConsumeToken();
         if(currenttoken->type != EnteroNumber)
             throw invalid_argument("Se esperaba numero entero.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+        int dimension = atoi(currenttoken->lexeme.c_str());
         ConsumeToken();
+        vector<int> dimensions;
+        dimensions.insert(dimensions.begin(),dimension);
+        return dimensions;
     }
     else
     {
-        //Epsilon
+        vector<int> dimensions;
+        return dimensions;
     }
-}
-
-void Parser:: ArchiveType()
-{
-    if(currenttoken->type == De)
-    {
-        ConsumeToken();
-        Type();
-    }
-    else if (currenttoken->type == Secuencial)
-        ConsumeToken();
 }
 
 bool Parser::IsInstruccion(Token * token){
@@ -983,6 +1100,8 @@ bool Parser::IsInstruccion(Token * token){
         return true;
    return false;
 }
+
+
 bool Parser::IsLiteral(Token * token)
 {
     if(token->type == EnteroNumber || token->type == RealNumber
