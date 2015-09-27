@@ -15,8 +15,3 @@ string FunctionAccesorNode::GetName()
     return "FunctionAccesorNode";
 }
 
-TypeNode *FunctionAccesorNode::ValidateSemantic()
-{
-    return 0;
-}
-

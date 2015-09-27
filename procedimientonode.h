@@ -18,6 +18,7 @@ public:
 
     string GetName();
     void ValidateSemantic();
+    void Interpret();
 };
 
 #endif // PROCEDIMIENTONODE_H

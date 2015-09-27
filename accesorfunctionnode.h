@@ -11,7 +11,6 @@ public:
     ~FunctionAccesorNode();
 
     string GetName();
-    TypeNode *ValidateSemantic();
 };
 
 #endif // FUNCTIONACCESORNODE_H

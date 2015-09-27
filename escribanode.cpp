@@ -29,3 +29,11 @@ void EscribaNode::ValidateSemantic()
     }
 }
 
+void EscribaNode::Interpret()
+{
+    for(unsigned int i=0;i<printVariables.size();i++){
+        InterpretValue *value=printVariables[i]->Evaluate();
+        cout<<value->printValue()<<endl;
+    }
+}
+

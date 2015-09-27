@@ -3,6 +3,8 @@
 #include "statementnode.h"
 #include "variablenode.h"
 #include "casolinenode.h"
+#include "valueentero.h"
+#include "valuecaracter.h"
 #include <vector>
 
 class CasoNode:public StatementNode
@@ -17,6 +19,7 @@ public:
 
    string GetName();
    void ValidateSemantic();
+   void Interpret();
 };
 
 #endif // CASONODE_H

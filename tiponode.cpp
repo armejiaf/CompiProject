@@ -26,3 +26,8 @@ void TipoNode::ValidateSemantic()
 
 }
 
+void TipoNode::Interpret()
+{
+
+}
+

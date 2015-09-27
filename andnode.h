@@ -10,6 +10,7 @@ public:
 
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // ANDNODE_H

@@ -27,3 +27,16 @@ void RepitaNode::ValidateSemantic()
 
 }
 
+void RepitaNode::Interpret()
+{
+    ValueBooleano* conditionVal = dynamic_cast<ValueBooleano*>(condition->Evaluate());
+    do{
+
+        for (unsigned int i=0;i<code.size();i++)
+        {
+            code[i]->Interpret();
+        }
+        conditionVal = dynamic_cast<ValueBooleano*>(condition->Evaluate());
+    }while(conditionVal->value);
+}
+

@@ -10,6 +10,7 @@ public:
     ~ValueCadena();
 
     string printValue();
+    string GetName();
 };
 
 #endif // VALUECADENA_H

@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
         string stringfromfile;
         string stringlpp="";
         ifstream infile;
-        infile.open ("program.txt");
+        infile.open ("test.txt");
         while (getline(infile,stringfromfile))
         {
             stringlpp+=stringfromfile+"\n";
@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
         vector<StatementNode*> statements=parser->Parse();
         for(unsigned int i=0;i<statements.size();i++)
             statements[i]->ValidateSemantic();
+        for(unsigned int i=0;i<statements.size();i++)
+            statements[i]->Interpret();
         /*Token *currentToken = lex->GetToken();
         while(currentToken->type !=  EOFi)
         {q
@@ -29,7 +31,7 @@ int main(int argc, char *argv[])
             currentToken = lex->GetToken();
         }
         currentToken->Print();*/
-        cout<<"Funca\n";
+        cout<<endl<<"Funca\n";
     }catch (exception& e){
         cout<<e.what()<<"\n";
     }

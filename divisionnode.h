@@ -10,6 +10,7 @@ public:
     ~DivisionNode();
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // DIVISIONNODE_H

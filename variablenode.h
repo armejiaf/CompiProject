@@ -9,6 +9,7 @@
 #include "accesorfunctionnode.h"
 #include "accesorindexnode.h"
 #include "funcionnode.h"
+#include "interpretvalue.h"
 using namespace std;
 
 class VariableNode:public ExpressionNode
@@ -20,7 +21,9 @@ public:
     ~VariableNode();
 
     string GetName();
+    void SetValue(InterpretValue *value);
     TypeNode *ValidateSemantic();
+    InterpretValue *Evaluate();
 };
 
 #endif // VARIABLENODE_H

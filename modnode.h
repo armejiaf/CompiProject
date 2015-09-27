@@ -11,6 +11,7 @@ public:
 
     string ToXml();
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // MODNODE_H

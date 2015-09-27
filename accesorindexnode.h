@@ -15,7 +15,7 @@ public:
     ~IndexAccesorNode();
     vector<AccesorNode*> accesorList;
     string GetName();
-    TypeNode *ValidateSemantic();
+
 };
 
 #endif // INDEXACCESORNODE_H

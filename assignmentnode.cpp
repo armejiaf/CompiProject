@@ -28,3 +28,8 @@ void AssignmentNode::ValidateSemantic()
         throw invalid_argument("Tipos incompatibles entre si. Columna: "+to_string(column)+" Fila: "+to_string(row));
     }
 }
+
+void AssignmentNode::Interpret()
+{
+    id->SetValue(value->Evaluate());
+}

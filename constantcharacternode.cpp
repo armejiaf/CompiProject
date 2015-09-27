@@ -20,3 +20,8 @@ TypeNode *ConstantCharacterNode::ValidateSemantic()
     return new CaracterNode();
 }
 
+InterpretValue *ConstantCharacterNode::Evaluate()
+{
+    return new ValueCaracter(value);
+}
+

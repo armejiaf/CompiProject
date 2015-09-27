@@ -9,7 +9,7 @@ public:
     StatementNode();
     ~StatementNode();
     virtual void ValidateSemantic()=0;
-
+    virtual void Interpret()=0;
 };
 
 

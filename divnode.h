@@ -9,6 +9,7 @@ public:
     ~DivNode();
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // DIVNODE_H

@@ -16,6 +16,7 @@ public:
 
     string GetName();
     void ValidateSemantic();
+    void Interpret();
 };
 
 #endif // REPITANODE_H

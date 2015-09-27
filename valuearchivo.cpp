@@ -15,3 +15,8 @@ string ValueArchivo::printValue()
     return "";
 }
 
+string ValueArchivo::GetName()
+{
+    return "ValueArchivo";
+}
+

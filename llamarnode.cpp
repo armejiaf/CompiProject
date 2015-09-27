@@ -40,3 +40,8 @@ void LlamarNode::ValidateSemantic()
 
 }
 
+void LlamarNode::Interpret()
+{
+
+}
+

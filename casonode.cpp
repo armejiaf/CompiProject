@@ -37,3 +37,22 @@ void CasoNode::ValidateSemantic()
     }
 }
 
+void CasoNode::Interpret()
+{
+    ValueEntero* condition = dynamic_cast<ValueEntero*>(idCase->Evaluate());
+
+    for(unsigned int i=0;i<cases.size();i++)
+    {
+        for(unsigned int j=0;j<cases[i]->conditions.size();j++)
+        {
+            ValueEntero* caso=dynamic_cast<ValueEntero*>(cases[i]->conditions[j]->Evaluate());
+            if(caso->value == condition->value)
+                for(unsigned int k=0;k<cases[i]->code.size();k++)
+                   cases[i]->code[k]->Interpret();
+            else if(!defaultNode.empty())
+                for(unsigned int z=0;z<defaultNode.size();z++)
+                    defaultNode[i]->Interpret();
+        }
+    }
+}
+

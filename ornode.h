@@ -9,6 +9,7 @@ public:
     ~OrNode();
 
    string GetName();
+   InterpretValue *Evaluate();
 };
 
 #endif // ORNODE_H

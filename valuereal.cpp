@@ -18,3 +18,8 @@ string ValueReal::printValue()
     return s;
 }
 
+string ValueReal::GetName()
+{
+    return string("ValueReal");
+}
+

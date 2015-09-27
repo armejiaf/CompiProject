@@ -31,3 +31,20 @@ void ParaNode::ValidateSemantic()
         code[i]->ValidateSemantic();
 }
 
+void ParaNode::Interpret()
+{
+    counter->Interpret();
+    ValueEntero* firstcondition = dynamic_cast<ValueEntero*>(counter->id->Evaluate());
+    ValueEntero* lastcondition = dynamic_cast<ValueEntero*>(condition->Evaluate());
+    while (firstcondition->value <= lastcondition->value)
+    {
+        for (unsigned int i=0;i<code.size();i++)
+        {
+            code[i]->Interpret();
+        }
+
+        counter->id->SetValue(new ValueEntero((firstcondition->value+1)));
+        firstcondition = dynamic_cast<ValueEntero*>(counter->id->Evaluate());
+    }
+}
+

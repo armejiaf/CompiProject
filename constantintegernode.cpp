@@ -20,3 +20,8 @@ TypeNode *ConstantIntegerNode::ValidateSemantic()
     return new EnteroNode();
 }
 
+InterpretValue *ConstantIntegerNode::Evaluate()
+{
+    return new ValueEntero(value);
+}
+

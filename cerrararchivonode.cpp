@@ -24,3 +24,8 @@ void CerrarArchivoNode::ValidateSemantic()
 
 }
 
+void CerrarArchivoNode::Interpret()
+{
+
+}
+

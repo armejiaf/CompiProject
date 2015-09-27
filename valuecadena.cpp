@@ -15,3 +15,8 @@ string ValueCadena::printValue()
     return value;
 }
 
+string ValueCadena::GetName()
+{
+    return "ValueCadena";
+}
+

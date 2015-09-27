@@ -32,3 +32,8 @@ void ProcedimientoNode::ValidateSemantic()
     SymbolTable::Instance()->DeclareFuncionRegister(id,this);
 }
 
+void ProcedimientoNode::Interpret()
+{
+
+}
+

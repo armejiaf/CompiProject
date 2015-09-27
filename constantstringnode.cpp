@@ -20,3 +20,8 @@ TypeNode *ConstantStringNode::ValidateSemantic()
     return new CadenaNode(100);
 }
 
+InterpretValue *ConstantStringNode::Evaluate()
+{
+    return new ValueCadena(value);
+}
+

@@ -25,3 +25,8 @@ void RegistroNode::ValidateSemantic()
 
 }
 
+void RegistroNode::Interpret()
+{
+
+}
+

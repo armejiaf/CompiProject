@@ -14,6 +14,7 @@ public:
 
     string GetName();
     void ValidateSemantic();
+    void Interpret();
 };
 
 #endif // CERRARARCHIVONODE_H

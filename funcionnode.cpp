@@ -21,6 +21,9 @@ string FuncionNode::GetName()
 
 void FuncionNode::ValidateSemantic()
 {
+    if(!parameters.empty())
+        for (unsigned int i=0;i<parameters.size();i++)
+            parameters[i]->ValidateSemantic();
     if(!variables.empty())
         for (unsigned int i=0;i<variables.size();i++)
             variables[i]->ValidateSemantic();
@@ -41,6 +44,11 @@ void FuncionNode::ValidateSemantic()
             }
             code[i]->ValidateSemantic();
         }
-    SymbolTable::Instance()->DeclareFuncionRegister(id,this);
+        SymbolTable::Instance()->DeclareFuncionRegister(id,this);
+}
+
+void FuncionNode::Interpret()
+{
+
 }
 

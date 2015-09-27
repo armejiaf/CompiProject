@@ -22,4 +22,9 @@ TypeNode *ConstantBooleanNode::ValidateSemantic()
     return new BooleanoNode();
 }
 
+InterpretValue *ConstantBooleanNode::Evaluate()
+{
+    return new ValueBooleano(value);
+}
+
 

@@ -16,6 +16,11 @@ string VariableNode::GetName()
     return "IdNode";
 }
 
+void VariableNode::SetValue(InterpretValue *value)
+{
+    SymbolTable::Instance()->SetVariableValue(name,value);
+}
+
 TypeNode *VariableNode::ValidateSemantic()
 {
     if(!accesorList.empty())
@@ -47,6 +52,11 @@ TypeNode *VariableNode::ValidateSemantic()
         }
 
     else
-       return SymbolTable::Instance()->GetVariableType(name);
+        return SymbolTable::Instance()->GetVariableType(name);
+}
+
+InterpretValue *VariableNode::Evaluate()
+{
+    return SymbolTable::Instance()->GetVariableValue(name);
 }
 

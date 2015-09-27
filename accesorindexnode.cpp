@@ -16,8 +16,4 @@ string IndexAccesorNode::GetName()
     return "AccesorIndexNode";
 }
 
-TypeNode *IndexAccesorNode::ValidateSemantic()
-{
-    return 0;
-}
 

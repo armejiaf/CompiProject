@@ -17,6 +17,7 @@ public:
 
     string GetName();
     void ValidateSemantic();
+    void Interpret();
 };
 
 #endif // REGISTRONODE_H

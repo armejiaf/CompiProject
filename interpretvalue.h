@@ -12,6 +12,7 @@ public:
     InterpretValue();
     ~InterpretValue();
     virtual string printValue()=0;
+    virtual string GetName()=0;
 
 };
 

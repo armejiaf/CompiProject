@@ -56,3 +56,8 @@ void AbrirArchivoNode::ValidateSemantic()
     }
 }
 
+void AbrirArchivoNode::Interpret()
+{
+
+}
+

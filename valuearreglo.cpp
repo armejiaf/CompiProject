@@ -15,3 +15,8 @@ string ValueArreglo::printValue()
     return "[]";
 }
 
+string ValueArreglo::GetName()
+{
+    return "ValueArreglo";
+}
+

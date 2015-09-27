@@ -24,3 +24,8 @@ void EscribirArchivoNode::ValidateSemantic()
 
 }
 
+void EscribirArchivoNode::Interpret()
+{
+
+}
+

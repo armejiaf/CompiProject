@@ -5,6 +5,7 @@
 #include "typerealnode.h"
 #include "typebooleanonode.h"
 #include "typecadenanode.h"
+#include "interpretvalue.h"
 
 class SumNode:public BinaryOperationNode
 {
@@ -13,6 +14,7 @@ public:
     ~SumNode();
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // SUMNODE_H

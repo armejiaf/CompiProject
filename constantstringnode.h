@@ -11,6 +11,7 @@ public:
 
     string GetName();
     TypeNode *ValidateSemantic();
+    InterpretValue *Evaluate();
 };
 
 #endif // CONSTANTSTRINGNODE_H

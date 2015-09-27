@@ -6,7 +6,8 @@
 #include <stdexcept>
 #include <vector>
 
-class MientrasNode:public StatementNode
+class
+        MientrasNode:public StatementNode
 {
 public:
     ExpressionNode *condition;
@@ -18,6 +19,7 @@ public:
 
    string GetName();
    void ValidateSemantic();
+   void Interpret();
 };
 
 #endif // MIENTRASNODE_H

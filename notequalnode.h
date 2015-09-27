@@ -2,6 +2,9 @@
 #define NOTEQUAL_H
 #include "binaryoperationnode.h"
 #include "typebooleanonode.h"
+#include "valuecadena.h"
+#include "valueentero.h"
+#include "valuereal.h"
 class NotEqualNode:public BinaryOperationNode
 {
 public:
@@ -9,6 +12,7 @@ public:
     ~NotEqualNode();
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // NOTEQUAL_H

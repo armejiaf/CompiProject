@@ -9,6 +9,7 @@ public:
     ValueReal(double value);
     ~ValueReal();
     string printValue();
+    string GetName();
 };
 
 #endif // VALUEREAL_H

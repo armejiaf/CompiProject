@@ -19,6 +19,7 @@ public:
 
     string GetName();
     void ValidateSemantic();
+    void Interpret();
 };
 
 #endif // ABRIRARCHIVONODE_H

@@ -19,3 +19,8 @@ void HTMLNode::ValidateSemantic()
 {
 }
 
+void HTMLNode::Interpret()
+{
+    cout << html << endl;
+}
+

@@ -20,3 +20,8 @@ TypeNode *ConstantFloatNode::ValidateSemantic()
     return new RealNode();
 }
 
+InterpretValue *ConstantFloatNode::Evaluate()
+{
+    return new ValueReal(value);
+}
+

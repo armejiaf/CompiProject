@@ -21,6 +21,7 @@ public:
 
     string GetName();
     void ValidateSemantic();
+    void Interpret();
 };
 
 #endif // FUNCIONNODE_H

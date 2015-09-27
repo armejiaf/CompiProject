@@ -24,3 +24,8 @@ void DeclararNode::ValidateSemantic()
         SymbolTable::Instance()->DeclareVariable(idList[i],type);
 }
 
+void DeclararNode::Interpret()
+{
+
+}
+

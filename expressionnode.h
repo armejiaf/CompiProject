@@ -8,6 +8,7 @@ public:
     ExpressionNode();
     ~ExpressionNode();
     virtual TypeNode* ValidateSemantic()=0;
+    virtual InterpretValue* Evaluate()=0;
 };
 
 #endif // EXPRESSIONNODE_H

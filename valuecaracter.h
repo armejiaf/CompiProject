@@ -10,6 +10,7 @@ public:
     ~ValueCaracter();
 
     string printValue();
+    string GetName();
 };
 
 #endif // VALUECARACTER_H

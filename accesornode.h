@@ -11,7 +11,6 @@ class AccesorNode
 {
 public:
     virtual string GetName()=0;
-    virtual TypeNode* ValidateSemantic()=0;
     int row;
     int column;
     AccesorNode();

@@ -15,5 +15,10 @@ string ValueBooleano::printValue()
     return value ? "true" : "false";
 }
 
+string ValueBooleano::GetName()
+{
+    return "ValueBoolean";
+}
+
 
 

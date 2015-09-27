@@ -10,6 +10,7 @@ public:
     ~SubstractionNode();
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // SUBSTRACTIONNODE_H

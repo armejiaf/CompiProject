@@ -2,6 +2,11 @@
 #define GREATEREQUALNODE_H
 #include "binaryoperationnode.h"
 #include "typebooleanonode.h"
+#include "valuebooleano.h"
+#include "valuecadena.h"
+#include "valuecaracter.h"
+#include "valueentero.h"
+#include "valuereal.h"
 class GreaterEqualNode:public BinaryOperationNode
 {
 public:
@@ -9,6 +14,7 @@ public:
     ~GreaterEqualNode();
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // GREATEREQUALNODE_H

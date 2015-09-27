@@ -2,6 +2,13 @@
 #define GREATERTHANNODE_H
 #include "binaryoperationnode.h"
 #include "typebooleanonode.h"
+#include "valuecadena.h"
+#include "valuecaracter.h"
+#include "valueentero.h"
+#include "valuereal.h"
+
+
+
 class GreaterThanNode: public BinaryOperationNode
 {
 public:
@@ -9,6 +16,7 @@ public:
     ~GreaterThanNode();
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // GREATERTHANNODE_H

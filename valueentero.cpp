@@ -12,8 +12,14 @@ ValueEntero::~ValueEntero()
 
 string ValueEntero::printValue()
 {
-    char *intStr = itoa(value,intStr,10);
+    char *intStr = new char;
+    intStr=itoa(value,intStr,10);
     string str = string(intStr);
     return str;
+}
+
+string ValueEntero::GetName()
+{
+    return "ValueEntero";
 }
 

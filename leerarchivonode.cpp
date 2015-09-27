@@ -24,3 +24,8 @@ void LeerArchivoNode::ValidateSemantic()
         throw invalid_argument("Se esperaba tipo archivo en la primer variable. Columna: "+to_string(column)+" Fila: "+to_string(row) );
 }
 
+void LeerArchivoNode::Interpret()
+{
+
+}
+

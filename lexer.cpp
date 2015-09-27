@@ -179,7 +179,7 @@ Token* Lexer::GetToken()
                     state = 5;
                 }
                 else if(symbol=='\"'){
-                    lexeme += symbol;
+
                     symbol = GetNextSymbol();
                     state = 9;
                 }
@@ -524,7 +524,6 @@ Token* Lexer::GetToken()
                     symbol = GetNextSymbol();
                 }
                 else if(symbol == '\"'){
-                    lexeme+=symbol;
                     symbol = GetNextSymbol();
                     state =10;
                 }else

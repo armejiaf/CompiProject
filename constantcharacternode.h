@@ -12,6 +12,7 @@ public:
 
     string GetName();
     TypeNode *ValidateSemantic();
+    InterpretValue *Evaluate();
 };
 
 #endif // CONSTANTCHARACTERNODE_H

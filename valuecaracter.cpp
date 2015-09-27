@@ -17,3 +17,8 @@ string ValueCaracter::printValue()
     return s;
 }
 
+string ValueCaracter::GetName()
+{
+    return string("ValueCaracter");
+}
+

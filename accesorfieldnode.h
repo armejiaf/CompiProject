@@ -13,7 +13,6 @@ public:
     ~FieldAccesorNode();
     vector<AccesorNode*> accesorlist;
     string GetName();
-    TypeNode *ValidateSemantic();
 };
 
 #endif // FIELDACCESORNODE_H

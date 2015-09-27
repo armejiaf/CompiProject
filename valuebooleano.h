@@ -9,6 +9,7 @@ public:
     ValueBooleano(bool value);
     ~ValueBooleano();
     string printValue();
+    string GetName();
 };
 
 #endif // VALUEBOOLEANO_H

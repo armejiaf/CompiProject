@@ -9,6 +9,7 @@ public:
     ~ValueArchivo();
 
     string printValue();
+    string GetName();
 };
 
 #endif // VALUEARCHIVO_H

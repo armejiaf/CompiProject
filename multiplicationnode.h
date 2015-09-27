@@ -10,6 +10,8 @@ public:
     ~MultiplicationNode();
 
     string GetName();
+    InterpretValue *Evaluate();
+
 };
 
 #endif // MULTIPLICATIONNODE_H

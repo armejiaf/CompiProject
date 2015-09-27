@@ -6,9 +6,12 @@ class ValueArreglo: public InterpretValue
 {
 public:
 
+
+
     ValueArreglo();
     ~ValueArreglo();
     string printValue();
+    string GetName();
 };
 
 #endif // VALUEARREGLO_H

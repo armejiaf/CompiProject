@@ -9,7 +9,7 @@ Parser::Parser(Lexer *lexer)
 void Parser::ConsumeToken()
 {
     currenttoken = lexer->GetToken();
-    currenttoken->Print();
+    //currenttoken->Print();
 }
 
 vector<StatementNode*> Parser::Parse()

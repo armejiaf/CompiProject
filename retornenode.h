@@ -12,6 +12,7 @@ public:
 
     string GetName();
     void ValidateSemantic();
+    void Interpret();
 };
 
 #endif // RETORNENODE_H

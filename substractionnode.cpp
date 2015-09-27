@@ -19,3 +19,8 @@ string SubstractionNode::GetName()
     return "SubstractionNode";
 }
 
+InterpretValue *SubstractionNode::Evaluate()
+{
+
+}
+

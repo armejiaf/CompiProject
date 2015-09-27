@@ -9,6 +9,7 @@ public:
     ~NegatedNode();
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // NEGATEDNODE_H

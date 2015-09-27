@@ -11,6 +11,7 @@ public:
 
     string GetName();
     void ValidateSemantic();
+    void Interpret();
 };
 
 #endif // HTMLNODE_H

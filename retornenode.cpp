@@ -20,3 +20,8 @@ void RetorneNode::ValidateSemantic()
     return;
 }
 
+void RetorneNode::Interpret()
+{
+
+}
+

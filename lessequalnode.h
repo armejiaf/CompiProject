@@ -2,6 +2,10 @@
 #define LESSEQUALNODE_H
 #include "binaryoperationnode.h"
 #include "typebooleanonode.h"
+#include "valuecadena.h"
+#include "valuecaracter.h"
+#include "valueentero.h"
+#include "valuereal.h"
 class LessEqualNode:public BinaryOperationNode
 {
 public:
@@ -9,6 +13,7 @@ public:
     ~LessEqualNode();
 
     string GetName();
+    InterpretValue *Evaluate();
 };
 
 #endif // LESSEQUALNODE_H

@@ -10,6 +10,7 @@ public:
     ~ValueEntero();
 
     string printValue();
+    string GetName();
 };
 
 #endif // VALUEENTERO_H
