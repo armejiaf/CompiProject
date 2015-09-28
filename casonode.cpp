@@ -43,7 +43,7 @@ void CasoNode::ValidateSemantic()
                 cases[i]->code[k]->ValidateSemantic();
         if(!defaultNode.empty())
             for(unsigned int z=0;z<defaultNode.size();z++)
-                defaultNode[i]->ValidateSemantic();
+                defaultNode[z]->ValidateSemantic();
     }
 }
 
@@ -60,13 +60,16 @@ void CasoNode::Interpret()
             {
                 ValueEntero* caso=dynamic_cast<ValueEntero*>(cases[i]->conditions[j]->Evaluate());
                 if(caso->value == condition->value)
+                {
                     for(unsigned int k=0;k<cases[i]->code.size();k++)
                        cases[i]->code[k]->Interpret();
-                else if(!defaultNode.empty())
-                    for(unsigned int z=0;z<defaultNode.size();z++)
-                        defaultNode[i]->Interpret();
+                    return;
+                }
             }
         }
+        if(!defaultNode.empty())
+            for(unsigned int z=0;z<defaultNode.size();z++)
+                defaultNode[z]->Interpret();
     }
      else if(conditionType->GetName().compare("ValueReal")==0)
     {
@@ -78,13 +81,16 @@ void CasoNode::Interpret()
             {
                 ValueReal* caso=dynamic_cast<ValueReal*>(cases[i]->conditions[j]->Evaluate());
                 if(caso->value == condition->value)
+                {
                     for(unsigned int k=0;k<cases[i]->code.size();k++)
                        cases[i]->code[k]->Interpret();
-                else if(!defaultNode.empty())
-                    for(unsigned int z=0;z<defaultNode.size();z++)
-                        defaultNode[i]->Interpret();
+                    return;
+                }
             }
         }
+        if(!defaultNode.empty())
+            for(unsigned int z=0;z<defaultNode.size();z++)
+                defaultNode[z]->Interpret();
     }
     else if(conditionType->GetName().compare("ValueCaracter")==0){
         ValueCaracter* condition = dynamic_cast<ValueCaracter*>(conditionType);
@@ -95,13 +101,16 @@ void CasoNode::Interpret()
             {
                 ValueCaracter* caso=dynamic_cast<ValueCaracter*>(cases[i]->conditions[j]->Evaluate());
                 if(caso->value == condition->value)
+                {
                     for(unsigned int k=0;k<cases[i]->code.size();k++)
                        cases[i]->code[k]->Interpret();
-                else if(!defaultNode.empty())
-                    for(unsigned int z=0;z<defaultNode.size();z++)
-                        defaultNode[i]->Interpret();
+                    return;
+                }
             }
         }
+        if(!defaultNode.empty())
+            for(unsigned int z=0;z<defaultNode.size();z++)
+                defaultNode[z]->Interpret();
     }
 }
 
