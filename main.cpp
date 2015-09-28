@@ -31,7 +31,6 @@ int main(int argc, char *argv[])
             currentToken = lex->GetToken();
         }
         currentToken->Print();*/
-        cout<<endl<<"Funca\n";
     }catch (exception& e){
         cout<<e.what()<<"\n";
     }

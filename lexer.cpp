@@ -184,7 +184,6 @@ Token* Lexer::GetToken()
                     state = 9;
                 }
                 else if(symbol == '\''){
-                    lexeme +=symbol;
                     symbol =GetNextSymbol();
                     state= 20;
                 }
@@ -623,7 +622,6 @@ Token* Lexer::GetToken()
                     throw invalid_argument("No se envio un caracter. Columna: "+to_string(col)+" Fila: "+to_string(row));
                 }
                 else{
-                    lexeme+=symbol;
                     symbol=GetNextSymbol();
                     state = 21;
                 }

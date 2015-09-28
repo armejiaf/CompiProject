@@ -27,6 +27,9 @@ void LlamarNode::ValidateSemantic()
 
     TypeNode* typeI;
     TypeNode* typeJ;
+    if(procedimiento->parameters.size()!=parameters.size())
+        throw invalid_argument("Se esperaba "+to_string(procedimiento->parameters.size())+" parametros. Columna: "+to_string(column)+" Fila: "+to_string(row) );
+
     for(unsigned int i=0;i<parameters.size();i++)
     {
         for (unsigned int j=0;j<procedimiento->parameters.size();i++)

@@ -24,6 +24,8 @@ void SymbolTable::DeclareVariable(string name, TypeNode *value)
 
 StatementNode *SymbolTable::GetFuncionRegisterType(string name)
 {
+    if(variables.find(name)!=variables.end())
+        throw invalid_argument(name +" no existe.");
     return registrofunciones[name];
 }
 

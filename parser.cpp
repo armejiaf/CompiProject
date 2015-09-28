@@ -788,6 +788,8 @@ vector<ModeNode*> Parser::ModeList()
         ConsumeToken();
         ModeNode* mode=Mode();
         vector<ModeNode*> list=ModeListPrime();
+        if(currenttoken->type == Coma)
+            throw invalid_argument("Solo pueden haber dos modos de abrir un archivo lectura o escritura.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
         list.push_back(mode);
         return list;
     }
@@ -810,6 +812,11 @@ ModeNode* Parser::Mode()
         string mode=currenttoken->lexeme;
         ConsumeToken();
         return new ModeNode(mode);
+    }
+    else
+    {
+        throw invalid_argument("Ese modo de abrir archivo no existe.  Row:"+to_string(currenttoken->row)+"Column:"+to_string(currenttoken->column));
+
     }
 }
 vector<ModeNode*> Parser::ModeListPrime()

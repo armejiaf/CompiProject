@@ -20,7 +20,7 @@ string SiNode::GetName()
 
 void SiNode::ValidateSemantic()
 {
-   /* TypeNode * condicionType = condicion->ValidateSemantic();
+   TypeNode * condicionType = condicion->ValidateSemantic();
     if (condicionType->GetName().compare("TypeBoolean")!=0)
         throw ("Se esperaba expresion booleana en la sentencia Si. Columna: "+to_string(column)+" Fila: "+to_string(row) );
     if(!trueCode.empty())
@@ -33,7 +33,7 @@ void SiNode::ValidateSemantic()
         for (unsigned int i=0;i<falseCode.size();i++)
         {
             falseCode[i]->ValidateSemantic();
-        }*/
+        }
 
 }
 

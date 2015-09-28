@@ -3,6 +3,11 @@
 #include "statementnode.h"
 #include "variablenode.h"
 #include "expressionnode.h"
+#include "typecadenanode.h"
+#include "valuecadena.h"
+#include "symboltable.h"
+#include <iostream>
+#include <string>
 #include <stdexcept>
 
 class AssignmentNode:public StatementNode
